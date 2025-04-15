@@ -1,4 +1,4 @@
-package main
+package wiring
 
 import (
 	"bufio"
@@ -9,11 +9,44 @@ import (
 	"strings"
 )
 
+const maxSignal = 65535
+
 type Wire struct {
 	ID     string
 	Signal int
 }
 
+var wires = make(map[string]Wire)
+
+func Run(input, wireName string) int {
+	for k := range wires {
+		delete(wires, k)
+	}
+	queue := Queue{}
+	queue.Clear()
+	b := bytes.NewBufferString(input)
+	scanner := bufio.NewScanner(b)
+	for scanner.Scan() {
+		queue.Add(scanner.Text())
+	}
+OuterLoop:
+	for {
+		queueLen := queue.Len()
+		if queueLen == 0 {
+			break
+		}
+		for _, instruction := range queue.Instructions {
+			result := parseInstruction(instruction)
+			if result == true {
+				queue.DeleteItem(instruction)
+				continue OuterLoop
+			}
+		}
+	}
+	return wires[wireName].Signal
+}
+
+// --- Queue
 type Queue struct {
 	Instructions map[string]string
 }
@@ -42,36 +75,6 @@ func (q *Queue) Len() int {
 	return len(q.Instructions)
 }
 
-var wires = make(map[string]Wire)
-
-func Run(input string) Wire {
-	for k := range wires {
-		delete(wires, k)
-	}
-	queue := Queue{}
-	queue.Clear()
-	b := bytes.NewBufferString(input)
-	scanner := bufio.NewScanner(b)
-	for scanner.Scan() {
-		queue.Add(scanner.Text())
-	}
-	OuterLoop:
-	for {
-		queueLen := queue.Len()
-		if queueLen == 0 {
-			break
-		}
-		for _, instruction := range queue.Instructions {
-			result := parseInstruction(instruction)
-			if result == true {
-				queue.DeleteItem(instruction)
-				continue OuterLoop
-			}
-		}
-	}
-	return wires["a"]
-}
-
 func parse(phrase string) []string {
 	tokens := strings.Split(phrase, " ")
 	return tokens
@@ -93,7 +96,6 @@ func getOperator(tokens []string) string {
 		return "RSHIFT"
 	}
 	panic(tokens)
-	return "thing"
 }
 
 func parseInstruction(phrase string) bool {
@@ -131,8 +133,6 @@ func parseInstruction(phrase string) bool {
 	default:
 		panic("unknown operator")
 	}
-	panic("Unexpected")
-	return false
 }
 
 func NOT(inputKey string, targetKey string) bool {
@@ -140,7 +140,7 @@ func NOT(inputKey string, targetKey string) bool {
 		return false
 	}
 	input := wires[inputKey].Signal
-	signal := (65535 - input)
+	signal := (maxSignal - input)
 	wire := Wire{targetKey, signal}
 	wires[targetKey] = wire
 	return true
@@ -155,7 +155,6 @@ func ASSIGN(input, targetKey string) bool {
 		if _, ok := wires[inputKey]; !ok {
 			return false
 		}
-
 		inputSignal := wires[inputKey].Signal
 		wire := Wire{targetKey, inputSignal}
 		wires[targetKey] = wire
@@ -173,7 +172,6 @@ func ASSIGN(input, targetKey string) bool {
 }
 
 func AND(inputKey1 string, inputKey2 string, targetKey string) bool {
-
 	var input1, input2 int
 
 	//Keys can be numbers.
@@ -194,7 +192,7 @@ func AND(inputKey1 string, inputKey2 string, targetKey string) bool {
 		input1 = inputOne
 	}
 
-	//Keys can be numbers. DAMN
+	//Keys can be numbers.
 	//input can be wire (letters)  OR value (number)
 	match2, _ := regexp.MatchString("[a-z]{1,2}", inputKey2)
 	if match2 == true {
