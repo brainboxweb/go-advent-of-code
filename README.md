@@ -13,4 +13,8 @@ I approached the challenge in the following way:
 
 
 
-* Updated in 2025 to move each day into a separate package.
+Updates in 2025
+---
+
+- Moved each day into a separate package. (everything in `main` previously.)
+- Some logic moved to obects (Day 5).
