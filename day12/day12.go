@@ -1,4 +1,4 @@
-package main
+package day12
 
 import (
 	"encoding/json"
@@ -19,13 +19,12 @@ func Count(input string) int {
 }
 
 func Count2(input string) int {
-
 	var f []interface{}
 	err := json.Unmarshal([]byte(input), &f)
 	if err != nil {
-		panic("Didnt expect that")
+		panic("Not expected")
 	}
-	total := parseArray(f) //Need to choose one or the other :(
+	total := parseArray(f)
 
 	return total
 }
