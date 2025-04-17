@@ -1,6 +1,4 @@
-package main
-
-import ()
+package day11
 
 func getNextPassword(oldPassword string) string {
 	var newPassword string
@@ -72,13 +70,13 @@ func rising(input string) bool {
 }
 
 func base26(num int) string {
-
 	if num < 1 {
 		panic("Not supported")
 	}
 	theString := ""
 	for pos := 8; pos >= 0 && num > 0; pos-- {
-		theString = string(int(rune(97))+(num%26)) + theString
+		character := string(rune(97 + num%26))
+		theString = character + theString
 		num = num / 26
 	}
 	return theString

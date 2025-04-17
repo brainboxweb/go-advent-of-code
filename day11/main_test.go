@@ -1,4 +1,4 @@
-package main
+package day11
 
 import (
 	"testing"
@@ -9,29 +9,28 @@ import (
 //Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz.
 //For example:
 
-var test = []struct {
-	input    string
-	expected bool
-}{
-	{
-		"abc",
-		true,
-	},
-	{
-		"aib",
-		false,
-	},
-	{
-		"ao",
-		false,
-	},
-	{
-		"al",
-		false,
-	},
-}
-
 func TestAllowed(t *testing.T) {
+	var test = []struct {
+		input    string
+		expected bool
+	}{
+		{
+			"abc",
+			true,
+		},
+		{
+			"aib",
+			false,
+		},
+		{
+			"ao",
+			false,
+		},
+		{
+			"al",
+			false,
+		},
+	}
 	for _, test := range test {
 		actual := allowed(test.input)
 		if actual != test.expected {
@@ -42,18 +41,18 @@ func TestAllowed(t *testing.T) {
 	}
 }
 
-var tests2 = []struct {
-	input    string
-	expected int
-}{
-	{"aaaa", 2},
-	{"aaa", 1},
-	{"abbceffg", 2},
-	{"aaacccdss", 3},
-}
-
 func TestDoubleCount(t *testing.T) {
-	for _, test := range tests2 {
+	var tests = []struct {
+		input    string
+		expected int
+	}{
+		{"aaaa", 2},
+		{"aaa", 1},
+		{"abbceffg", 2},
+		{"aaacccdss", 3},
+	}
+
+	for _, test := range tests {
 		if actual := doubleCount(test.input, 0); actual != test.expected {
 			t.Errorf("Convert(%q) = %d, expected %d.",
 				test.input, actual, test.expected)
@@ -61,46 +60,25 @@ func TestDoubleCount(t *testing.T) {
 	}
 }
 
-//
-//
-//var tests2 = []struct {
-//	input    string
-//	expected bool
-//}{
-//	{"aaaa", true},
-//	{"aaa", false},
-//	{"abbceffg", true},
-//}
-//
-//func TestDoublesNoOverlap(t *testing.T) {
-//	for _, test := range tests2 {
-//		if actual := doublesNoOverlap(test.input); actual != test.expected {
-//			t.Errorf("Convert(%q) = %t, expected %t.",
-//				test.input, actual, test.expected)
-//		}
-//	}
-//}
-
-var tests3 = []struct {
-	input    string
-	expected bool
-}{
-	{
-		"abc",
-		true,
-	},
-	{
-		"cba",
-		false,
-	},
-	{
-		"sssxyzbb",
-		true,
-	},
-}
-
 func TestRising(t *testing.T) {
-	for _, test := range tests3 {
+	var tests = []struct {
+		input    string
+		expected bool
+	}{
+		{
+			"abc",
+			true,
+		},
+		{
+			"cba",
+			false,
+		},
+		{
+			"sssxyzbb",
+			true,
+		},
+	}
+	for _, test := range tests {
 		actual := rising(test.input)
 		if actual != test.expected {
 			t.Errorf("Convert(%s) = %t, expected %t.",
@@ -116,26 +94,25 @@ func TestRising(t *testing.T) {
 //The next password after abcdefgh is abcdffaa.
 //The next password after ghijklmn is ghjaabcc, because you eventually skip all the passwords that start with ghi..., since i is not allowed.
 
-var tests4 = []struct {
-	input    string
-	expected bool
-}{
-	{
-		"abbceffg",
-		false,
-	},
-	{
-		"abcdffaa",
-		true,
-	},
-	{
-		"ghjaabcc",
-		true,
-	},
-}
-
 func TestValid(t *testing.T) {
-	for _, test := range tests4 {
+	var tests = []struct {
+		input    string
+		expected bool
+	}{
+		{
+			"abbceffg",
+			false,
+		},
+		{
+			"abcdffaa",
+			true,
+		},
+		{
+			"ghjaabcc",
+			true,
+		},
+	}
+	for _, test := range tests {
 		actual := valid(test.input)
 		if actual != test.expected {
 			t.Errorf("Convert(%s) = %t, expected %t.",
@@ -145,80 +122,82 @@ func TestValid(t *testing.T) {
 	}
 }
 
-var tests5 = []struct {
-	input    int
-	expected string
-}{
-	{
-		1,
-		"b",
-	},
-	{
-		23,
-		"x",
-	},
-	{
-		24,
-		"y",
-	},
-	{
-		25,
-		"z",
-	},
-	{
-		26,
-		"ba",
-	},
-	{
-		286,
-		"la",
-	},
-	{
-		57647112526,
-		"hepxcrrq",
-	},
-}
-
 func TestBase26(t *testing.T) {
-	for _, test := range tests5 {
+	var tests = []struct {
+		input    int
+		expected string
+	}{
+
+		{
+			1,
+			"b",
+		},
+		{
+			2,
+			"c",
+		},
+		{
+			23,
+			"x",
+		},
+		{
+			24,
+			"y",
+		},
+		{
+			25,
+			"z",
+		},
+		{
+			26,
+			"ba",
+		},
+		{
+			286,
+			"la",
+		},
+		{
+			57647112526,
+			"hepxcrrq",
+		},
+	}
+	for _, test := range tests {
 		actual := base26(test.input)
 		if actual != test.expected {
 			t.Errorf("Convert(%d) = %s, expected %s.",
 				test.input, actual, test.expected)
 		}
-
 	}
 }
 
-var tests6 = []struct {
-	input    string
-	expected int
-}{
-	{
-		"b",
-		1,
-	},
-	{
-		"x",
-		23,
-	},
-	{
-		"y",
-		24,
-	},
-	{
-		"ba",
-		26,
-	},
-
-	{
-		"hepxcrrq",
-		57647112526,
-	},
-}
-
 func TestBase26ToDecimal(t *testing.T) {
-	for _, test := range tests6 {
+	var tests = []struct {
+		input    string
+		expected int
+	}{
+		{
+			"b",
+			1,
+		},
+		{
+			"x",
+			23,
+		},
+		{
+			"y",
+			24,
+		},
+		{
+			"ba",
+			26,
+		},
+
+		{
+			"hepxcrrq",
+			57647112526,
+		},
+	}
+	for _, test := range tests {
 		actual := base26ToDecimal(test.input)
 		if actual != test.expected {
 			t.Errorf("Convert(%s) = %d, expected %d.",
@@ -228,21 +207,21 @@ func TestBase26ToDecimal(t *testing.T) {
 	}
 }
 
-var tests7 = []struct {
-	input    string
-	expected string
-}{
-	{
-		"hepxcrrq",
-		"hepxxyzz",
-	},
-	{
-		"hepxxyzz",
-		"heqaabcc",
-	},
-}
-
 func TestNextPassword(t *testing.T) {
+	var tests7 = []struct {
+		input    string
+		expected string
+	}{
+		{
+			"cqjxjnds", 
+			"cqjxxyzz", // <-- Part 1
+		},
+		{
+			"cqjxxyzz",
+			"cqkaabcc", // <-- Part 2
+		},
+	}
+
 	for _, test := range tests7 {
 		actual := getNextPassword(test.input)
 		if actual != test.expected {
