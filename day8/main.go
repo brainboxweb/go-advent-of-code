@@ -1,4 +1,4 @@
-package main
+package day8
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func Run(input string) int {
+func Part1(input string) int {
 	total := 0
 	b := bytes.NewBufferString(input)
 	scanner := bufio.NewScanner(b)
@@ -23,7 +23,7 @@ func stringInfo2(s string) (int, int) {
 	return len(s), len(q)
 }
 
-func run2(input string) int {
+func Part2(input string) int {
 	total := 0
 	b := bytes.NewBufferString(input)
 	scanner := bufio.NewScanner(b)
