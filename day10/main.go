@@ -6,7 +6,6 @@ import (
 
 
 func Run(input int, loops int) int {
-
 	inputSlice := []int{}
 
 	intString := strconv.Itoa(input)
@@ -30,7 +29,6 @@ func Run(input int, loops int) int {
 }
 
 func say(input []int) []int {
-
 	output := []int{}
 	reg := Register{}
 	var regValue, regCount int
