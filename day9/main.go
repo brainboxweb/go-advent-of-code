@@ -4,10 +4,11 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/nightlyone/permutation"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/nightlyone/permutation"
 )
 
 func Run(input string) int {
@@ -58,7 +59,7 @@ func Run(input string) int {
 
 		distance := getDistance(newLocations, routes)
 		if distance == 0 {
-			continue ///  Strange...
+			continue
 		}
 
 		if distance < shortest {
@@ -127,7 +128,6 @@ type Routes struct {
 
 func (r *Routes) AddRoute(one, two string, distance int) {
 
-	//Avoid nil map panic
 	if r.routes == nil {
 		r.routes = make(map[string]int)
 	}

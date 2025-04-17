@@ -5,17 +5,18 @@ import (
 	"testing"
 )
 
-var test = []struct {
-	input    string
-	expected []string
-}{
-	{
-		"AlphaCentauri to Snowdin = 66",
-		[]string{"AlphaCentauri", "Snowdin", "66"},
-	},
-}
+
 
 func TestParse(t *testing.T) {
+	var test = []struct {
+		input    string
+		expected []string
+	}{
+		{
+			"AlphaCentauri to Snowdin = 66",
+			[]string{"AlphaCentauri", "Snowdin", "66"},
+		},
+	}
 	for _, test := range test {
 		if actual := parse(test.input); !reflect.DeepEqual(actual, test.expected) {
 			t.Errorf("Parse(%s) = %s, expected %s.",
@@ -24,22 +25,23 @@ func TestParse(t *testing.T) {
 	}
 }
 
-var test2 = []struct {
-	input    string
-	expected int
-}{
-	{
-		"AlphaCentauri to Snowdin = 66\nSnowdin to Tambi = 22\nTambi to Faerun = 39",
-		22,
-	},
-	{
-		day9data,
-		141,
-	},
-}
+
 
 func TestRun(t *testing.T) {
-	for _, test := range test2 {
+	var test = []struct {
+		input    string
+		expected int
+	}{
+		{
+			"AlphaCentauri to Snowdin = 66\nSnowdin to Tambi = 22\nTambi to Faerun = 39",
+			22,
+		},
+		{
+			day9data,
+			141,
+		},
+	}
+	for _, test := range test {
 		if actual := Run(test.input); actual != test.expected {
 			t.Errorf("Convert(%s) = %d, expected %d.",
 				test.input, actual, test.expected)
