@@ -1,4 +1,4 @@
-package main
+package day16
 
 import (
 	"bufio"
@@ -6,10 +6,9 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	//	"fmt"
 )
 
-func run(input string, known string, advanced bool) int {
+func Part1(input string, known string, advanced bool) int {
 
 	//The Sues
 	b := bytes.NewBufferString(input)
