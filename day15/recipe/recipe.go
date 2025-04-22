@@ -1,30 +1,6 @@
-package main
+package recipe
 
-import (
-	"bufio"
-	"bytes"
-	"strconv"
-	"strings"
-)
-
-func run(input string, calorieCount int) int {
-	b := bytes.NewBufferString(input)
-	scanner := bufio.NewScanner(b)
-
-	recipe := Recipe{}
-
-	for scanner.Scan() {
-		text := scanner.Text()
-		ingred := parse(text)
-		recipe.AddIngredient(ingred)
-	}
-
-	ratios := mixRatios(len(recipe.recipeIngredients))
-
-	return getMaxScore(recipe, ratios, calorieCount)
-}
-
-func mixRatios(quant int) [][]int {
+func MixRatios(quant int) [][]int {
 
 	ratios := [][]int{}
 
@@ -53,7 +29,7 @@ func mixRatios(quant int) [][]int {
 	return ratios
 }
 
-func getMaxScore(recipe Recipe, ratios [][]int, calorieCount int) int {
+func GetMaxScore(recipe Recipe, ratios [][]int, calorieCount int) int {
 	maxScore := 0
 	for _, ratio := range ratios {
 		recipe.SetRatios(ratio)
@@ -65,6 +41,7 @@ func getMaxScore(recipe Recipe, ratios [][]int, calorieCount int) int {
 	return maxScore
 }
 
+<<<<<<<< HEAD:_15_Cookie/main.go
 // Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
 func parse(phrase string) Ingredient {
 	phrase = strings.Trim(phrase, ".")
@@ -85,6 +62,10 @@ func parse(phrase string) Ingredient {
 	ingred := Ingredient{name, capacity, durability, flavor, texture, calories}
 
 	return ingred
+========
+func NewIngredient(name string, capacity, durability, flavor, texture, calories int) Ingredient {
+	return Ingredient{name, capacity, durability, flavor, texture, calories}
+>>>>>>>> d9ac8e6 (Day 15):day15/recipe/recipe.go
 }
 
 // Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
@@ -98,7 +79,7 @@ type Ingredient struct {
 }
 
 type Recipe struct {
-	recipeIngredients []RecipeIngredient
+	RecipeIngredients []RecipeIngredient
 }
 
 type RecipeIngredient struct {
@@ -108,21 +89,20 @@ type RecipeIngredient struct {
 
 func (r *Recipe) AddIngredient(ingred Ingredient) {
 	ri := RecipeIngredient{ingred, 0}
-	r.recipeIngredients = append(r.recipeIngredients, ri)
+	r.RecipeIngredients = append(r.RecipeIngredients, ri)
 }
 
 func (r *Recipe) SetRatios(ratios []int) {
-	for i := 0; i < len(r.recipeIngredients); i++ {
-		r.recipeIngredients[i].quantity = ratios[i]
+	for i := 0; i < len(r.RecipeIngredients); i++ {
+		r.RecipeIngredients[i].quantity = ratios[i]
 	}
 }
 
 func (r *Recipe) GetScore(calorieCount int) int {
-
 	//If calorie count not-zero, match or return
 	if calorieCount != 0 {
 		caloriesTotal := 0
-		for _, ri := range r.recipeIngredients {
+		for _, ri := range r.RecipeIngredients {
 			caloriesTotal += ri.ingredient.calories * ri.quantity
 		}
 		if caloriesTotal != calorieCount {
@@ -132,7 +112,7 @@ func (r *Recipe) GetScore(calorieCount int) int {
 
 	//capacity
 	capacityTotal := 0
-	for _, ri := range r.recipeIngredients {
+	for _, ri := range r.RecipeIngredients {
 		capacityTotal += ri.ingredient.capacity * ri.quantity
 	}
 	if capacityTotal < 0 {
@@ -141,7 +121,7 @@ func (r *Recipe) GetScore(calorieCount int) int {
 
 	//durability
 	durabilityTotal := 0
-	for _, ri := range r.recipeIngredients {
+	for _, ri := range r.RecipeIngredients {
 		durabilityTotal += ri.ingredient.durability * ri.quantity
 	}
 	if durabilityTotal < 0 {
@@ -150,7 +130,7 @@ func (r *Recipe) GetScore(calorieCount int) int {
 
 	//flavor
 	flavorTotal := 0
-	for _, ri := range r.recipeIngredients {
+	for _, ri := range r.RecipeIngredients {
 		flavorTotal += ri.ingredient.flavor * ri.quantity
 
 	}
@@ -160,7 +140,7 @@ func (r *Recipe) GetScore(calorieCount int) int {
 
 	//texture
 	textureTotal := 0
-	for _, ri := range r.recipeIngredients {
+	for _, ri := range r.RecipeIngredients {
 		textureTotal += ri.ingredient.texture * ri.quantity
 	}
 	if textureTotal < 0 {
