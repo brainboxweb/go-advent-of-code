@@ -1,6 +1,11 @@
-package main
+package wizardry
 
 import (
+<<<<<<<< HEAD:_22_Wizards/main_test.go
+========
+	"testing"
+
+>>>>>>>> acc18fe (Day 22):day22/wizardry/wizardry_internal_test.go
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -127,6 +132,7 @@ func TestTakeTurnAgain(t *testing.T) {
 	require.Equal(t, "player", winner.name)
 }
 
+<<<<<<<< HEAD:_22_Wizards/main_test.go
 func TestBattles(t *testing.T) {
 
 	recharge := Spell{
@@ -268,3 +274,5 @@ func TestBattlesHard(t *testing.T) {
 
 	require.Equal(t, 1289, minimumCost)
 }
+========
+>>>>>>>> acc18fe (Day 22):day22/wizardry/wizardry_internal_test.go
