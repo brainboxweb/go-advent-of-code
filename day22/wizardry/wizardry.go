@@ -1,8 +1,12 @@
-package main
+package wizardry
 
+<<<<<<<< HEAD:_22_Wizards/main.go
 import (
 // "fmt"
 )
+========
+//	"fmt"
+>>>>>>>> acc18fe (Day 22):day22/wizardry/wizardry.go
 
 //Your spells are Magic Missile, Drain, Shield, Poison, and Recharge.
 //
@@ -35,7 +39,6 @@ Shortsword   10     5       0
 Warhammer    25     6       0
 Longsword    40     7       0
 Greataxe     74     8       0
-
 Armor:      Cost  Damage  Armor
 Leather      13     0       1
 Chainmail    31     0       2
@@ -83,6 +86,7 @@ type Ring struct {
 type Battle struct {
 	activeSpells map[Spell]int
 }
+<<<<<<<< HEAD:_22_Wizards/main.go
 
 //
 //func weapons() []Weapon {
@@ -144,6 +148,8 @@ type Battle struct {
 //	}
 //	return rings
 //}
+========
+>>>>>>>> acc18fe (Day 22):day22/wizardry/wizardry.go
 
 // For the recurive function, I need to ditiniguish between losing and running out of spells
 // Trying to cast two spells at the same time is considered a LOSE
@@ -168,7 +174,7 @@ func (b Battle) battle(player, boss Player, isHard bool) (isOk bool, winner Play
 		}
 
 	}
-	return false, Player{}
+	return false, Player{} // not expected
 }
 
 func (b *Battle) takeTurn(turnIndex int, player, boss *Player) (ok bool, winner Player) {
@@ -301,7 +307,13 @@ func (b *Battle) attack(attacker, defender *Player) {
 	defender.hitPoints -= damage
 }
 
+<<<<<<<< HEAD:_22_Wizards/main.go
 func Battling(allSpells, playerSpells []Spell, minimumCost int, isHard bool) int {
+========
+func Battling(playerSpells []Spell, minimumCost int, isHard bool) int {
+
+	allSpells := setSpells()
+>>>>>>>> acc18fe (Day 22):day22/wizardry/wizardry.go
 
 	if len(playerSpells) > 10 {
 		return minimumCost
@@ -311,15 +323,19 @@ func Battling(allSpells, playerSpells []Spell, minimumCost int, isHard bool) int
 
 		newSpells := append(playerSpells, spell)
 
-		player := Player{"player", 500, 50, 0, []Spell{}}
-		boss := Player{"boss", 0, 55, 8, []Spell{}}
+		player := Player{"player", 500, 50, 0, []Spell{}} // Hardodes here
+		boss := Player{"boss", 0, 58, 9, []Spell{}}       // Ah ha!
+
+		// 		Hit Points: 58
+		// Damage: 9
+
 		player.spells = newSpells
 		battle := Battle{}
 
 		ok, winner := battle.battle(player, boss, isHard)
 		if ok == false {
 			//Not finished... go deeper!
-			deepMinimumCost := Battling(allSpells, newSpells, minimumCost, isHard)
+			deepMinimumCost := Battling(newSpells, minimumCost, isHard)
 			if deepMinimumCost < minimumCost {
 				minimumCost = deepMinimumCost
 			}
@@ -341,4 +357,71 @@ func Battling(allSpells, playerSpells []Spell, minimumCost int, isHard bool) int
 
 	}
 	return minimumCost
+}
+
+func setSpells() []Spell {
+	recharge := Spell{
+		"recharge",
+		229,
+		0,
+		0,
+		Effect{
+			5,
+			0,
+			0,
+			101,
+		},
+	}
+
+	sheild := Spell{
+		"sheild",
+		113,
+		0,
+		0,
+		Effect{
+			6,
+			7,
+			0,
+			0,
+		},
+	}
+
+	drain := Spell{
+		"drain",
+		73,
+		2,
+		2,
+		Effect{},
+	}
+
+	poison := Spell{
+		"poison",
+		173,
+		0,
+		0,
+		Effect{
+			6,
+			0,
+			3,
+			0,
+		},
+	}
+
+	magicMissile := Spell{
+		"magicMissile",
+		53,
+		4,
+		0,
+		Effect{},
+	}
+
+	spells := []Spell{
+		recharge,
+		sheild,
+		drain,
+		poison,
+		magicMissile,
+	}
+
+	return spells
 }
