@@ -1,4 +1,4 @@
-package main
+package battleground
 
 import (
 	"github.com/stretchr/testify/require"
@@ -58,14 +58,14 @@ func TestDamage2(t *testing.T) {
 	require.Equal(t, expectedHitPoints, defender.hitPoints)
 }
 
-func TestPlayToWin(t *testing.T) {
-	cost, _ := play()
+func TestPlayToWin(t *testing.T) { // <-- Part 1
+	cost, _ := Play()
 	expected := 111
 	require.Equal(t, expected, cost)
 }
 
-func TestPlayToLose(t *testing.T) {
-	_, cost := play()
+func TestPlayToLose(t *testing.T) {// <-- Part 2
+	_, cost := Play()
 	expected := 188
 	require.Equal(t, expected, cost)
 }

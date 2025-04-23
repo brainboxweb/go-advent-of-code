@@ -1,4 +1,4 @@
-package main
+package battleground
 
 import (
 // "fmt"
@@ -56,13 +56,13 @@ type Ring struct {
 	armour int
 }
 
-func play() (minimumCost, maximumCost int) {
+func Play() (minimumCost, maximumCost int) {
 
 	//	Hit Points: 109
 	//	Damage: 8
 	//	Armor: 2
 	player := Player{"player", 100, 0, 0}
-	boss := Player{"boss", 109, 8, 2}
+	boss := Player{"boss", 109, 8, 2} // <-- test input
 
 	minimumCost = 1000000
 	maximumCost = 0
