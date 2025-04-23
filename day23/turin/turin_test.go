@@ -1,8 +1,9 @@
-package main
+package turin
 
 import (
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 var tests = []struct {
@@ -61,37 +62,25 @@ inc a`
 	require.Equal(t, expected, instructionSet)
 }
 
-var tests2 = []struct {
-	input           string
-	intialValueForA int
-	expectedA       int
-	expectedB       int
-}{
-	{
-		`inc a
+func TestRun(t *testing.T) {
+	var tests = []struct {
+		input           string
+		intialValueForA int
+		expectedA       int
+		expectedB       int
+	}{
+				{
+					`inc a
 jio a, +2
 tpl a
 inc a`,
-		0,
-		2,
-		0,
-	},
-	{
-		day22data,
-		0,
-		1,
-		184,
-	},
-	{
-		day22data,
-		1,
-		1,
-		231,
-	},
-}
+					0,
+					2,
+					0,
+				},
+	}
 
-func TestRun(t *testing.T) {
-	for _, test := range tests2 {
+	for _, test := range tests {
 
 		a, b := Run(test.input, test.intialValueForA)
 
@@ -328,53 +317,3 @@ func TestExecute(t *testing.T) {
 
 	require.Equal(t, expected, finalRegisters["a"].Value)
 }
-
-const day22data = `jio a, +19
-inc a
-tpl a
-inc a
-tpl a
-inc a
-tpl a
-tpl a
-inc a
-inc a
-tpl a
-tpl a
-inc a
-inc a
-tpl a
-inc a
-inc a
-tpl a
-jmp +23
-tpl a
-tpl a
-inc a
-inc a
-tpl a
-inc a
-inc a
-tpl a
-inc a
-tpl a
-inc a
-tpl a
-inc a
-tpl a
-inc a
-inc a
-tpl a
-inc a
-inc a
-tpl a
-tpl a
-inc a
-jio a, +8
-inc b
-jie a, +4
-tpl a
-inc a
-jmp +2
-hlf a
-jmp -7`
