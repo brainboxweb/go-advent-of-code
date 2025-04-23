@@ -1,9 +1,12 @@
+<<<<<<<< HEAD:_20_Delivery/main.go
 package main
 
 import ()
+========
+package day20
+>>>>>>>> 6cda353 (Day 20):day20/day20.go
 
 func GetHouseNumber(presentCount int, presentsPerElf int, limitPerElf int) int {
-
 	house := make(map[int]int)
 	loopLimit := presentCount / presentsPerElf
 
