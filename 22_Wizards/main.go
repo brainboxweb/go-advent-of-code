@@ -1,9 +1,8 @@
 package main
 
-import(
-//	"fmt"
+import (
+// "fmt"
 )
-
 
 //Your spells are Magic Missile, Drain, Shield, Poison, and Recharge.
 //
@@ -13,22 +12,20 @@ import(
 //Poison costs 173 mana. It starts an effect that lasts for 6 turns. At the start of each turn while it is active, it deals the boss 3 damage.
 //Recharge costs 229 mana. It starts an effect that lasts for 5 turns. At the start of each turn while it is active, it gives you 101 new mana.
 
-
-type Effect struct{
-	turns int
-	armor int
+type Effect struct {
+	turns  int
+	armor  int
 	damage int
-	cost int
+	cost   int
 }
 
-type  Spell struct{
-	name string
-	cost int
+type Spell struct {
+	name   string
+	cost   int
 	damage int
-	heals int
+	heals  int
 	effect Effect
 }
-
 
 /*
 Weapons:    Cost  Damage  Armor
@@ -56,37 +53,37 @@ Defense +3   80     0       3
 )
 */
 
-
-type Player struct{
-	name string
-	money int
+type Player struct {
+	name      string
+	money     int
 	hitPoints int
-	damage int
-	spells []Spell
+	damage    int
+	spells    []Spell
 }
 
-type Weapon struct{
-	name string
-	cost int
+type Weapon struct {
+	name   string
+	cost   int
 	damage int
 }
 
-type Armour struct{
-	name string
-	cost int
+type Armour struct {
+	name   string
+	cost   int
 	armour int
 }
 
-type Ring struct{
-	name string
-	cost int
+type Ring struct {
+	name   string
+	cost   int
 	damage int
 	armour int
 }
 
-type Battle struct{
+type Battle struct {
 	activeSpells map[Spell]int
 }
+
 //
 //func weapons() []Weapon {
 //
@@ -148,8 +145,8 @@ type Battle struct{
 //	return rings
 //}
 
-//For the recurive function, I need to ditiniguish between losing and running out of spells
-//Trying to cast two spells at the same time is considered a LOSE
+// For the recurive function, I need to ditiniguish between losing and running out of spells
+// Trying to cast two spells at the same time is considered a LOSE
 func (b Battle) battle(player, boss Player, isHard bool) (isOk bool, winner Player) {
 
 	turnIndex := 0
@@ -157,7 +154,7 @@ func (b Battle) battle(player, boss Player, isHard bool) (isOk bool, winner Play
 		turnIndex++
 
 		if isHard == true {
-			player.hitPoints = player.hitPoints - 1  //Lose a hit point
+			player.hitPoints = player.hitPoints - 1 //Lose a hit point
 		}
 
 		ok, winner := b.takeTurn(turnIndex, &player, &boss)
@@ -174,8 +171,7 @@ func (b Battle) battle(player, boss Player, isHard bool) (isOk bool, winner Play
 	return false, Player{}
 }
 
-
-func (b *Battle) takeTurn(turnIndex int, player, boss *Player) (ok bool, winner Player){
+func (b *Battle) takeTurn(turnIndex int, player, boss *Player) (ok bool, winner Player) {
 
 	ok = true
 
@@ -185,7 +181,7 @@ func (b *Battle) takeTurn(turnIndex int, player, boss *Player) (ok bool, winner 
 
 	//test for enough spells spell
 	if len(player.spells) < turnIndex {
-		return false, Player{}  //Just false... because we want recursion to continue
+		return false, Player{} //Just false... because we want recursion to continue
 	}
 
 	result := b.castSpell(turnIndex, player, boss)
@@ -214,21 +210,20 @@ func (b *Battle) takeTurn(turnIndex int, player, boss *Player) (ok bool, winner 
 	return ok, Player{}
 }
 
-
-func (b *Battle) registerSpellEffect(spell Spell) bool{
+func (b *Battle) registerSpellEffect(spell Spell) bool {
 	//nill map
 	if b.activeSpells == nil {
 		b.activeSpells = make(map[Spell]int)
 	}
 	if _, ok := b.activeSpells[spell]; ok {
-//		panic("cannot have two at the same time")
+		//		panic("cannot have two at the same time")
 		return false
 	}
 	b.activeSpells[spell] = spell.effect.turns
 	return true
 }
 
-func (b *Battle) getSpells()  []Spell {
+func (b *Battle) getSpells() []Spell {
 
 	returnSpells := []Spell{}
 	for spell, _ := range b.activeSpells {
@@ -242,8 +237,7 @@ func (b *Battle) getSpells()  []Spell {
 	return returnSpells
 }
 
-
-func  (b *Battle) castSpell(turnIndex int, attacker *Player, defender *Player) bool {
+func (b *Battle) castSpell(turnIndex int, attacker *Player, defender *Player) bool {
 
 	damage := 0
 
@@ -251,7 +245,6 @@ func  (b *Battle) castSpell(turnIndex int, attacker *Player, defender *Player) b
 	//New spell: pay for it. register it.
 	newSpell := attacker.spells[turnIndex-1]
 	attacker.money -= attacker.spells[turnIndex-1].cost
-
 
 	if attacker.money < 0 {
 		return false
@@ -275,14 +268,13 @@ func  (b *Battle) castSpell(turnIndex int, attacker *Player, defender *Player) b
 		attacker.hitPoints += newSpell.heals
 	}
 
-	defender.hitPoints -=  damage
+	defender.hitPoints -= damage
 	return true
 }
 
-
-//	Damage dealt by an attacker each turn is equal to the attacker's damage score minus the defender's armor score.
-//	The player deals 5-2 = 3 damage; the boss goes down to 9 hit points.
-func   (b *Battle)  attack(attacker, defender *Player){
+// Damage dealt by an attacker each turn is equal to the attacker's damage score minus the defender's armor score.
+// The player deals 5-2 = 3 damage; the boss goes down to 9 hit points.
+func (b *Battle) attack(attacker, defender *Player) {
 
 	defenderArmour := 0
 
@@ -291,7 +283,7 @@ func   (b *Battle)  attack(attacker, defender *Player){
 	for _, spell := range activeSpells {
 
 		defender.money += spell.effect.cost //NB - defender gets benefit
-		attacker.hitPoints  -= spell.effect.damage
+		attacker.hitPoints -= spell.effect.damage
 
 		defenderArmour += spell.effect.armor
 
@@ -306,19 +298,16 @@ func   (b *Battle)  attack(attacker, defender *Player){
 	if damage < 1 {
 		damage = 1
 	}
-	defender.hitPoints -=  damage
+	defender.hitPoints -= damage
 }
 
-
-
-
-func Battling (allSpells, playerSpells []Spell, minimumCost int, isHard bool) int {
+func Battling(allSpells, playerSpells []Spell, minimumCost int, isHard bool) int {
 
 	if len(playerSpells) > 10 {
 		return minimumCost
 	}
 
-	for _, spell := range allSpells{
+	for _, spell := range allSpells {
 
 		newSpells := append(playerSpells, spell)
 
@@ -336,7 +325,7 @@ func Battling (allSpells, playerSpells []Spell, minimumCost int, isHard bool) in
 			}
 		}
 
-		switch winner.name{
+		switch winner.name {
 		case "player":
 			//count the cost of spells
 			totalCost := 0

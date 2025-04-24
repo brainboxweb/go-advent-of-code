@@ -137,7 +137,7 @@ func (race *Race) getTopScore() int {
 	return topScore
 }
 
-//For sorting
+// For sorting
 type distance struct {
 	Reindeer *Reindeer
 	Distance int

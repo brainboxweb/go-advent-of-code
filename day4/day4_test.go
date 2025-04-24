@@ -6,8 +6,6 @@ import (
 	"github.com/brainboxweb/advent/day4"
 )
 
-
-
 func TestBitcoin5(t *testing.T) {
 	var tests = []struct {
 		input    string
@@ -24,8 +22,6 @@ func TestBitcoin5(t *testing.T) {
 		}
 	}
 }
-
-
 
 func TestBitcoin6(t *testing.T) {
 	var tests = []struct {

@@ -117,7 +117,7 @@ func findMatch(sues []Sue, knowns []map[string]int, advanced bool) int {
 	return requiredSue.index
 }
 
-//Sue 1: goldfish: 9, cars: 0, samoyeds: 9
+// Sue 1: goldfish: 9, cars: 0, samoyeds: 9
 func parse(phrase string) Sue {
 	phrase = strings.Trim(phrase, ".")
 	tokens := strings.Split(phrase, " ")
@@ -164,7 +164,7 @@ func parseKnown(phrase string) map[string]int {
 	return known
 }
 
-//Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
+// Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
 type Sue struct {
 	index     int
 	properies map[string]int

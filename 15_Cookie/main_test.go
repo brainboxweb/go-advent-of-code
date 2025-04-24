@@ -30,7 +30,8 @@ func TestParse(t *testing.T) {
 
 /*
 Then, choosing to use 44 teaspoons of butterscotch and 56 teaspoons of cinnamon (because the amounts of each
- ingredient must add up to 100) would result in a cookie with the following properties:
+
+	ingredient must add up to 100) would result in a cookie with the following properties:
 
 A capacity of 44*-1 + 56*2 = 68
 A durability of 44*-2 + 56*3 = 80

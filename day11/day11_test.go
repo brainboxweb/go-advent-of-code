@@ -213,7 +213,7 @@ func TestNextPassword(t *testing.T) {
 		expected string
 	}{
 		{
-			"cqjxjnds", 
+			"cqjxjnds",
 			"cqjxxyzz", // <-- Part 1
 		},
 		{

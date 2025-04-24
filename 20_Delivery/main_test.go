@@ -4,13 +4,11 @@ import (
 	"testing"
 )
 
-
-
 var tests = []struct {
-	presents  int
+	presents   int
 	multiplier int
-	limit int
-	expected int
+	limit      int
+	expected   int
 }{
 	{
 		30,
@@ -52,4 +50,3 @@ func TestGetHouseNumbe(t *testing.T) {
 		}
 	}
 }
-

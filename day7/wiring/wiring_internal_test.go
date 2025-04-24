@@ -72,4 +72,3 @@ func TestGetOperator(t *testing.T) {
 		}
 	}
 }
-

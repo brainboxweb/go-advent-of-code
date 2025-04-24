@@ -45,8 +45,8 @@ type Bottle struct {
 	vol  int
 }
 
-//takes the current state of Bottle
-//picks one...
+// takes the current state of Bottle
+// picks one...
 // recurses through the others
 func recurse(breadcrumb string, bottles []Bottle, volume int, matches []string) []string {
 
@@ -79,7 +79,7 @@ func recurse(breadcrumb string, bottles []Bottle, volume int, matches []string) 
 	return matches
 }
 
-//Dedupe the string. Return the count
+// Dedupe the string. Return the count
 func dedupe(input []string) (int, int) {
 
 	index := make(map[string]int)

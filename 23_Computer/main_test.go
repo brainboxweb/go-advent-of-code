@@ -107,7 +107,7 @@ func TestRun(t *testing.T) {
 	}
 }
 
-//tpl r sets register r to triple its current value, then continues with the next instruction.
+// tpl r sets register r to triple its current value, then continues with the next instruction.
 func TestHlf(t *testing.T) {
 
 	reg := Register{"a", 10}
@@ -118,7 +118,7 @@ func TestHlf(t *testing.T) {
 	require.Equal(t, exectedValue, reg.Value)
 }
 
-//tpl r sets register r to triple its current value, then continues with the next instruction.
+// tpl r sets register r to triple its current value, then continues with the next instruction.
 func TestTpl(t *testing.T) {
 
 	reg := Register{"a", 10}
@@ -129,7 +129,7 @@ func TestTpl(t *testing.T) {
 	require.Equal(t, exectedValue, reg.Value)
 }
 
-//inc r increments register r, adding 1 to it, then continues with the next instruction.
+// inc r increments register r, adding 1 to it, then continues with the next instruction.
 func TestInc(t *testing.T) {
 
 	reg := Register{"a", 7}
@@ -140,7 +140,7 @@ func TestInc(t *testing.T) {
 	require.Equal(t, exectedValue, reg.Value)
 }
 
-//jmp offset is a jump; it continues with the instruction offset away relative to itself.
+// jmp offset is a jump; it continues with the instruction offset away relative to itself.
 func TestJump(t *testing.T) {
 
 	inst1 := Instruction{"inc", "a", 0}
@@ -164,7 +164,7 @@ func TestJump(t *testing.T) {
 
 }
 
-//jie r, offset is like jmp, but only jumps if register r is even ("jump if even").
+// jie r, offset is like jmp, but only jumps if register r is even ("jump if even").
 func TestJie(t *testing.T) {
 
 	inst1 := Instruction{"inc", "a", 0}
@@ -189,7 +189,7 @@ func TestJie(t *testing.T) {
 
 }
 
-//jie r, offset is like jmp, but only jumps if register r is even ("jump if even").
+// jie r, offset is like jmp, but only jumps if register r is even ("jump if even").
 func TestJieAgain(t *testing.T) {
 
 	inst1 := Instruction{"inc", "a", 0}
@@ -213,7 +213,7 @@ func TestJieAgain(t *testing.T) {
 	require.Equal(t, inst3, result)
 }
 
-//jio r, offset is like jmp, but only jumps if register r is 1 ("jump if one", not odd).
+// jio r, offset is like jmp, but only jumps if register r is 1 ("jump if one", not odd).
 func TestJio(t *testing.T) {
 
 	inst1 := Instruction{"inc", "a", 0}
@@ -237,7 +237,7 @@ func TestJio(t *testing.T) {
 	require.Equal(t, inst4, result)
 }
 
-//jio r, offset is like jmp, but only jumps if register r is 1 ("jump if one", not odd).
+// jio r, offset is like jmp, but only jumps if register r is 1 ("jump if one", not odd).
 func TestJioAgain(t *testing.T) {
 
 	inst1 := Instruction{"inc", "a", 0}

@@ -95,4 +95,3 @@ func TestStrings2(t *testing.T) {
 		}
 	}
 }
-
