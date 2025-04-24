@@ -1,7 +1,7 @@
 package main
 
 import (
-//	"fmt"
+// "fmt"
 )
 
 /*
@@ -153,8 +153,8 @@ func battle(player, boss Player) (winner Player) {
 	}
 }
 
-//	Damage dealt by an attacker each turn is equal to the attacker's damage score minus the defender's armor score.
-//	The player deals 5-2 = 3 damage; the boss goes down to 9 hit points.
+// Damage dealt by an attacker each turn is equal to the attacker's damage score minus the defender's armor score.
+// The player deals 5-2 = 3 damage; the boss goes down to 9 hit points.
 func attack(attacker, defender *Player) {
 	damage := attacker.damage - defender.armour
 	if damage < 1 {

@@ -48,4 +48,3 @@ func TestNiceTwo(t *testing.T) {
 		}
 	}
 }
-

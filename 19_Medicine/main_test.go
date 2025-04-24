@@ -99,7 +99,7 @@ func TestSwapElement(t *testing.T) {
 	require.Equal(t, expectedMol, mol)
 }
 
-//----- Day One -----
+// ----- Day One -----
 var tests = []struct {
 	trans    string
 	elements string
@@ -128,7 +128,7 @@ func TestRun(t *testing.T) {
 	}
 }
 
-//----- Day Two -----
+// ----- Day Two -----
 var tests2 = []struct {
 	trans    string
 	elements string

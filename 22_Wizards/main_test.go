@@ -1,10 +1,9 @@
 package main
 
 import (
-	"testing"
 	"github.com/stretchr/testify/require"
+	"testing"
 )
-
 
 func TestTakeTurn(t *testing.T) {
 
@@ -48,7 +47,6 @@ func TestTakeTurn(t *testing.T) {
 
 	require.Equal(t, 0, boss.hitPoints)
 }
-
 
 func TestTakeTurnAgain(t *testing.T) {
 
@@ -129,7 +127,6 @@ func TestTakeTurnAgain(t *testing.T) {
 	require.Equal(t, "player", winner.name)
 }
 
-
 func TestBattles(t *testing.T) {
 
 	recharge := Spell{
@@ -200,7 +197,6 @@ func TestBattles(t *testing.T) {
 
 	require.Equal(t, 953, minimumCost)
 }
-
 
 func TestBattlesHard(t *testing.T) {
 

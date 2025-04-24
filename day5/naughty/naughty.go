@@ -29,7 +29,7 @@ func (phr Phrase) NiceTwo() bool {
 	return false
 }
 
-func (phr Phrase) vowels( ) bool {
+func (phr Phrase) vowels() bool {
 	r, _ := regexp.Compile(`[aeiou]`)
 	result := r.FindAllString(phr.phrase, -1)
 	if len(result) > 2 {

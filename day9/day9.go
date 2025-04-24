@@ -69,7 +69,6 @@ func Shortest(input string) int {
 	return shortest
 }
 
-
 func Longest(input string) int {
 	b := bytes.NewBufferString(input)
 	scanner := bufio.NewScanner(b)
@@ -127,7 +126,6 @@ func Longest(input string) int {
 	}
 	return longest
 }
-
 
 func seqToSlice(seq permutation.Sequence) []int {
 

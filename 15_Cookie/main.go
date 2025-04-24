@@ -65,7 +65,7 @@ func getMaxScore(recipe Recipe, ratios [][]int, calorieCount int) int {
 	return maxScore
 }
 
-//Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
+// Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
 func parse(phrase string) Ingredient {
 	phrase = strings.Trim(phrase, ".")
 	tokens := strings.Split(phrase, " ")
@@ -87,7 +87,7 @@ func parse(phrase string) Ingredient {
 	return ingred
 }
 
-//Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
+// Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
 type Ingredient struct {
 	name       string
 	capacity   int

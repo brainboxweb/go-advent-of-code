@@ -4,7 +4,6 @@ import (
 	"strconv"
 )
 
-
 func Run(input int, loops int) int {
 	inputSlice := []int{}
 
@@ -57,8 +56,8 @@ type Register struct {
 	Count int
 }
 
-//Add an integer.
-//Returns either notthing... or the previous strng and count
+// Add an integer.
+// Returns either notthing... or the previous strng and count
 func (r *Register) AddItem(item int) (int, int) {
 
 	//On a run

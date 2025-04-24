@@ -82,10 +82,10 @@ func TestRun(t *testing.T) {
 }
 
 /*
-  Given the example reindeer from above, after the first second, Dancer is in the lead and gets one point. He stays in
-  the lead until several seconds into Comet's second burst: after the 140th second, Comet pulls into the lead and gets
-  his first point. Of course, since Dancer had been in the lead for the 139 seconds before that, he has accumulated
-  139 points by the 140th second.
+Given the example reindeer from above, after the first second, Dancer is in the lead and gets one point. He stays in
+the lead until several seconds into Comet's second burst: after the 140th second, Comet pulls into the lead and gets
+his first point. Of course, since Dancer had been in the lead for the 139 seconds before that, he has accumulated
+139 points by the 140th second.
 */
 func TestGetScore(t *testing.T) {
 
@@ -103,8 +103,8 @@ func TestGetScore(t *testing.T) {
 }
 
 /*
-  After the 1000th second, Dancer has accumulated 689 points, while poor Comet, our old champion, only has 312. So, with
-  the new scoring system, Dancer would win (if the race ended at 1000 seconds).
+After the 1000th second, Dancer has accumulated 689 points, while poor Comet, our old champion, only has 312. So, with
+the new scoring system, Dancer would win (if the race ended at 1000 seconds).
 */
 func TestGetScore2(t *testing.T) {
 

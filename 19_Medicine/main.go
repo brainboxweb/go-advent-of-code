@@ -51,13 +51,13 @@ func parseTransformations(input string) Transformations {
 	return transformations
 }
 
-//Just one transformation
+// Just one transformation
 type Transformation struct {
 	objectElement Element //May not be needed
 	targets       []Element
 }
 
-//Just one transformation
+// Just one transformation
 func NewTransformation(object Element, targets []Element) Transformation {
 	return Transformation{object, targets}
 }
@@ -134,7 +134,7 @@ func countUnique(molecules []Molecule) int {
 	return len(molMap)
 }
 
-//----------------- Day 2 ---------------------
+// ----------------- Day 2 ---------------------
 func reverseEngineer(tranformations, shortMoleculeString, longMoleculeString string) int {
 	//Prep transformations for regex
 	b := bytes.NewBufferString(tranformations)
