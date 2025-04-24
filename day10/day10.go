@@ -1,4 +1,4 @@
-package main
+package day10
 
 import (
 	"strconv"
@@ -19,16 +19,16 @@ func Run(input int, loops int) int {
 	for i := 0; i < loops; i++ {
 
 		if i == 0 {
-			result = say(inputSlice)
+			result = Say(inputSlice)
 			continue
 		}
-		result = say(result)
+		result = Say(result)
 	}
 
 	return len(result)
 }
 
-func say(input []int) []int {
+func Say(input []int) []int {
 	output := []int{}
 	reg := Register{}
 	var regValue, regCount int

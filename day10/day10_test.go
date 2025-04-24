@@ -1,8 +1,10 @@
-package main
+package day10_test
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/brainboxweb/advent/day10"
 )
 
 //1 becomes 11 (1 copy of digit 1).
@@ -34,7 +36,7 @@ func TestSay(t *testing.T) {
 		},
 	}
 	for _, test := range test {
-		if actual := say(test.input); !reflect.DeepEqual(actual, test.expected) {
+		if actual := day10.Say(test.input); !reflect.DeepEqual(actual, test.expected) {
 			t.Errorf("Process(%q) = %q, expected %q.",
 				test.input, actual, test.expected)
 		}
@@ -81,7 +83,7 @@ func TestRun(t *testing.T) {
 		},
 	}
 	for _, test := range test {
-		if actual := Run(test.input, test.loops); actual != test.expected {
+		if actual := day10.Run(test.input, test.loops); actual != test.expected {
 			t.Errorf("Parse(%d) = %d, expected %d.",
 				test.input, actual, test.expected)
 		}
