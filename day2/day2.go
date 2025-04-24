@@ -8,12 +8,8 @@ import (
 	"strings"
 )
 
-func Wrapping(input string) (int, int) {
-
+func Wrapping(input string) (totalArea, totalRibbon int) {
 	b := bytes.NewBufferString(input)
-	totalArea := 0
-	totalRibbon := 0
-
 	scanner := bufio.NewScanner(b)
 	for scanner.Scan() {
 		theText := scanner.Text()
@@ -27,7 +23,7 @@ func Wrapping(input string) (int, int) {
 		extra := sides[0] * sides[1]
 		totalArea += area + extra
 
-		//Ribbon
+		// Ribbon
 		ribbon := 2 * (sides[0] + sides[1])
 		bow := a * b * c
 		totalRibbon += ribbon + bow

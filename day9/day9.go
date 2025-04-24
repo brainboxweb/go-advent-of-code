@@ -29,7 +29,7 @@ func Shortest(input string) int {
 		routes.AddRoute(parsed[0], parsed[1], distance)
 	}
 
-	//Get locations in a map
+	// Get locations in a map
 	locationsMap := make(map[int]string)
 	counter := 0
 	for _, locn := range locations.Locations {
@@ -37,7 +37,7 @@ func Shortest(input string) int {
 		counter++
 	}
 
-	//create a n int list
+	// create a n int list
 	keys := intSlice{}
 	for i := 0; i < len(locationsMap); i++ {
 		keys = append(keys, i)
@@ -49,7 +49,6 @@ func Shortest(input string) int {
 
 	// iterate over all permutations
 	for ok, seq := true, perm.Current(); ok; ok, seq = perm.Next(), perm.Current() {
-
 		indexes := seqToSlice(seq)
 
 		newLocations := []string{}
@@ -87,7 +86,7 @@ func Longest(input string) int {
 		routes.AddRoute(parsed[0], parsed[1], distance)
 	}
 
-	//Get locations in a map
+	// Get locations in a map
 	locationsMap := make(map[int]string)
 	counter := 0
 	for _, locn := range locations.Locations {
@@ -95,7 +94,7 @@ func Longest(input string) int {
 		counter++
 	}
 
-	//create a n int list
+	// create a n int list
 	keys := intSlice{}
 	for i := 0; i < len(locationsMap); i++ {
 		keys = append(keys, i)
@@ -107,7 +106,6 @@ func Longest(input string) int {
 
 	// iterate over all permutations
 	for ok, seq := true, perm.Current(); ok; ok, seq = perm.Next(), perm.Current() {
-
 		indexes := seqToSlice(seq)
 
 		newLocations := []string{}
@@ -128,7 +126,6 @@ func Longest(input string) int {
 }
 
 func seqToSlice(seq permutation.Sequence) []int {
-
 	hack := fmt.Sprint(seq)
 	hack = strings.Trim(hack, "[]")
 	indexes := strings.Split(hack, " ")
@@ -136,7 +133,6 @@ func seqToSlice(seq permutation.Sequence) []int {
 	indexesInt := []int{}
 
 	for _, val := range indexes {
-
 		indexInt, _ := strconv.Atoi(val)
 		indexesInt = append(indexesInt, indexInt)
 	}
@@ -145,7 +141,6 @@ func seqToSlice(seq permutation.Sequence) []int {
 }
 
 func getDistance(locationsSlice []string, routes Routes) int {
-
 	length := len(locationsSlice)
 	distance := 0
 	for i := 0; i < length-1; i++ {
@@ -169,14 +164,14 @@ func (l *Locations) AddLocation(location string) {
 		l.Locations = make(map[int]string)
 	}
 
-	//Test for dupes
+	// Test for dupes
 	for _, locn := range l.Locations {
 		if locn == location {
 			return
 		}
 	}
 
-	//Add it
+	// Add it
 	l.Locations[len(l.Locations)] = location
 }
 
@@ -185,7 +180,6 @@ type Routes struct {
 }
 
 func (r *Routes) AddRoute(one, two string, distance int) {
-
 	if r.routes == nil {
 		r.routes = make(map[string]int)
 	}
@@ -195,11 +189,10 @@ func (r *Routes) AddRoute(one, two string, distance int) {
 }
 
 func (r *Routes) GetDistance(one, two string) int {
-
 	return r.routes[one+","+two]
 }
 
-///Permutations
+// Permutations
 
 // define custom type
 type intSlice []int
@@ -212,7 +205,7 @@ func (p intSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 // Implement the remaining portions of permutation.Sequence interface
 func (p intSlice) Equal(q permutation.Sequence) bool { return reflect.DeepEqual(p, q) }
 func (p intSlice) Copy() permutation.Sequence {
-	q := make(intSlice, len(p), len(p))
+	q := make(intSlice, len(p))
 	copy(q, p)
 	return q
 }

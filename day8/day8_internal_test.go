@@ -51,10 +51,10 @@ func TestStrings(t *testing.T) {
 	}
 }
 
-//"" encodes to "\"\"", an increase from 2 characters to 6.
-//"abc" encodes to "\"abc\"", an increase from 5 characters to 9.
-//"aaa\"aaa" encodes to "\"aaa\\\"aaa\"", an increase from 10 characters to 16.
-//"\x27" encodes to "\"\\x27\"", an increase from 6 characters to 11.
+// "" encodes to "\"\"", an increase from 2 characters to 6.
+// "abc" encodes to "\"abc\"", an increase from 5 characters to 9.
+// "aaa\"aaa" encodes to "\"aaa\\\"aaa\"", an increase from 10 characters to 16.
+// "\x27" encodes to "\"\\x27\"", an increase from 6 characters to 11.
 
 func TestStrings2(t *testing.T) {
 	var test = []struct {

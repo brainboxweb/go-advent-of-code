@@ -96,7 +96,7 @@ func (ll *Lights) processlight(key, instruction string) {
 
 func (ll *Lights) switchOn(key string) {
 	if ll.isAdvanced {
-		//if exists, increase level
+		// if exists, increase level
 		_, ok := ll.lights[key]
 		if ok {
 			light := ll.lights[key]
@@ -109,17 +109,17 @@ func (ll *Lights) switchOn(key string) {
 		ll.lights[key] = light
 		return
 	}
-	//if exisits, do nothing
+	// if exisits, do nothing
 	if _, ok := ll.lights[key]; ok {
 		return
 	}
-	//otherwise, create
+	// otherwise, create
 	ll.lights[key] = light{}
 }
 
 func (ll *Lights) switchOff(key string) {
 	if ll.isAdvanced {
-		//if exists, reduce level
+		// if exists, reduce level
 		if light, ok := ll.lights[key]; ok {
 			light.Level--
 			if light.Level < 1 {
@@ -131,29 +131,27 @@ func (ll *Lights) switchOff(key string) {
 		return
 	}
 
-	if _, ok := ll.lights[key]; ok {
-		delete(ll.lights, key)
-	}
+	delete(ll.lights, key)
 }
 
 func (ll *Lights) toggle(key string) {
 	if ll.isAdvanced {
-		//increase twice
+		// increase twice
 		ll.switchOn(key)
 		ll.switchOn(key)
 		return
 	}
-	//If exists... delete it
+	// If exists... delete it
 	if _, ok := ll.lights[key]; ok {
 		delete(ll.lights, key)
 		return
 	}
-	//otherwise, create it
+	// otherwise, create it
 	ll.lights[key] = light{}
 }
 
 func parseInstruction(phrase string) instruction {
-	r, _ := regexp.Compile(`(\d{1,3},\d{1,3})`)
+	r := regexp.MustCompile(`(\d{1,3},\d{1,3})`)
 	result := r.FindAllString(phrase, -1)
 	action := ""
 	switch {

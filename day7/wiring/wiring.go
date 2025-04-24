@@ -3,7 +3,6 @@ package wiring
 import (
 	"bufio"
 	"bytes"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -37,7 +36,7 @@ OuterLoop:
 		}
 		for _, instruction := range queue.Instructions {
 			result := parseInstruction(instruction)
-			if result == true {
+			if result {
 				queue.DeleteItem(instruction)
 				continue OuterLoop
 			}
@@ -52,11 +51,10 @@ type Queue struct {
 }
 
 func (q *Queue) Add(s string) {
-
 	if s == "" {
 		return
 	}
-	//Avoid nil map panic
+	// Avoid nil map panic
 	if q.Instructions == nil {
 		q.Instructions = make(map[string]string)
 	}
@@ -99,26 +97,24 @@ func getOperator(tokens []string) string {
 }
 
 func parseInstruction(phrase string) bool {
-
 	tokens := parse(phrase)
 	operator := getOperator(tokens)
 
 	switch operator {
-	//"123 -> a"
-	//b -> a"
+	// "123 -> a"
+	// b -> a"
 	case "ASSIGN":
 		return ASSIGN(tokens[0], tokens[2])
-	//"x AND y -> d"
-	//3 AND y -> z"
+	// "x AND y -> d"
+	// 3 AND y -> z"
 	case "AND":
 		return AND(tokens[0], tokens[2], tokens[4])
-	//"x OR y -> d"
+	// "x OR y -> d"
 	case "OR":
 		return OR(tokens[0], tokens[2], tokens[4])
 	case "LSHIFT":
 		shiftCount, err := strconv.ParseUint(tokens[2], 10, 16)
 		if err != nil {
-			log.Fatal(err)
 			panic("did not see that coming")
 		}
 		return LSHIFT(tokens[0], shiftCount, tokens[4])
@@ -147,10 +143,10 @@ func NOT(inputKey string, targetKey string) bool {
 }
 
 func ASSIGN(input, targetKey string) bool {
-	//input can be wire (letters)  OR value (number)
+	// input can be wire (letters)  OR value (number)
 	match, _ := regexp.MatchString("[a-z]{1,2}", input)
-	if match == true {
-		//its a wire
+	if match {
+		// its a wire
 		inputKey := input
 		if _, ok := wires[inputKey]; !ok {
 			return false
@@ -161,9 +157,9 @@ func ASSIGN(input, targetKey string) bool {
 		return true
 	}
 
-	//its a signal. Assign it
+	// its a signal. Assign it
 	signal, err := strconv.Atoi(input)
-	if err != nil { //it's a value.
+	if err != nil { // it's a value.
 		panic("Not expected")
 	}
 	wire := Wire{targetKey, signal}
@@ -174,43 +170,40 @@ func ASSIGN(input, targetKey string) bool {
 func AND(inputKey1 string, inputKey2 string, targetKey string) bool {
 	var input1, input2 int
 
-	//Keys can be numbers.
-	//input can be wire (letters)  OR value (number)
+	// Keys can be numbers.
+	// input can be wire (letters)  OR value (number)
 	match, _ := regexp.MatchString("[a-z]{1,2}", inputKey1)
-	if match == true {
+	if match {
 		if _, ok := wires[inputKey1]; !ok {
 			//		fmt.Println("token  missing ", inputKey1)
 			return false
 		}
 		input1 = wires[inputKey1].Signal
 	} else {
-
 		inputOne, err := strconv.Atoi(inputKey1)
-		if err != nil { //it's a value.
+		if err != nil { // it's a value.
 			panic("Not expected")
 		}
 		input1 = inputOne
 	}
 
-	//Keys can be numbers.
-	//input can be wire (letters)  OR value (number)
+	// Keys can be numbers.
+	// input can be wire (letters)  OR value (number)
 	match2, _ := regexp.MatchString("[a-z]{1,2}", inputKey2)
-	if match2 == true {
+	if match2 {
 		if _, ok := wires[inputKey2]; !ok {
-			//		fmt.Println("token  missing ", inputKey1)
 			return false
 		}
 		input2 = wires[inputKey2].Signal
-
 	} else {
 		inputTwo, err := strconv.Atoi(inputKey2)
-		if err != nil { //it's a value.
+		if err != nil { // it's a value.
 			panic("Not expected")
 		}
 		input2 = inputTwo
 	}
 
-	signal := input1 & input2 //bitwise and
+	signal := input1 & input2 // bitwise AND
 
 	wire := Wire{targetKey, signal}
 	wires[targetKey] = wire
@@ -226,7 +219,7 @@ func OR(inputKey1 string, inputKey2 string, targetKey string) bool {
 	}
 	input1 := wires[inputKey1].Signal
 	input2 := wires[inputKey2].Signal
-	signal := input1 | input2 //bitwise and
+	signal := input1 | input2 // bitwise and
 	wire := Wire{targetKey, signal}
 	wires[targetKey] = wire
 	return true

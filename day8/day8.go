@@ -18,7 +18,7 @@ func Part1(input string) int {
 	return total
 }
 
-func stringInfo2(s string) (int, int) {
+func stringInfo2(s string) (lenS, lenQ int) {
 	q := strconv.Quote(s)
 	return len(s), len(q)
 }
@@ -35,7 +35,7 @@ func Part2(input string) int {
 	return total
 }
 
-func stringInfo(s string) (int, int) {
+func stringInfo(s string) (lenS, lenQ int) {
 	q, _ := strconv.Unquote(s)
 	return len(s), len(q)
 }

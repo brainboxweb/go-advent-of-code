@@ -5,7 +5,6 @@ import (
 )
 
 func FinalFloor(input string) int {
-
 	floor := 0
 	for _, r := range input {
 		c := string(r)
@@ -20,7 +19,6 @@ func FinalFloor(input string) int {
 }
 
 func Basement(input string) (int, error) {
-
 	floor := 0
 	count := 0
 	for _, r := range input {
