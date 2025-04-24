@@ -13,7 +13,7 @@ func NewPhrase(phrase string) Phrase {
 }
 
 func (phr Phrase) Nice() bool {
-	if phr.blacklist() == true {
+	if phr.blacklist() {
 		return false
 	}
 	if phr.vowels() && phr.doubleLetter() {
@@ -30,12 +30,9 @@ func (phr Phrase) NiceTwo() bool {
 }
 
 func (phr Phrase) vowels() bool {
-	r, _ := regexp.Compile(`[aeiou]`)
+	r := regexp.MustCompile(`[aeiou]`)
 	result := r.FindAllString(phr.phrase, -1)
-	if len(result) > 2 {
-		return true
-	}
-	return false
+	return len(result) > 2
 }
 
 func (phr Phrase) doubleLetter() bool {
@@ -51,7 +48,7 @@ func (phr Phrase) doubleLetter() bool {
 }
 
 func (phr Phrase) blacklist() bool {
-	r, _ := regexp.Compile("ab|cd|pq|xy")
+	r := regexp.MustCompile("ab|cd|pq|xy")
 	result := r.MatchString(phr.phrase)
 	return result
 }
@@ -61,12 +58,12 @@ func (phr Phrase) doublesNoOverlap() bool {
 	matchCount := 0
 	for i := 0; i < len(tokens); i++ {
 		subject := tokens[i]
-		//find match
+		// find match
 		for j := 0; j < len(tokens); j++ {
-			if i == j { //don't compare with self
+			if i == j { // don't compare with self
 				continue
 			}
-			if i+1 == j { //overlap match
+			if i+1 == j { // overlap match
 				continue
 			}
 			object := tokens[j]

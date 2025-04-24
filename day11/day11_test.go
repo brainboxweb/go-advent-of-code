@@ -4,10 +4,10 @@ import (
 	"testing"
 )
 
-//Passwords must include one increasing straight of at least three letters, like abc, bcd, cde, and so on, up to xyz. They cannot skip letters; abd doesn't count.
-//Passwords may not contain the letters i, o, or l, as these letters can be mistaken for other characters and are therefore confusing.
-//Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz.
-//For example:
+// Passwords must include one increasing straight of at least three letters, like abc, bcd, cde, and so on, up to xyz. They cannot skip letters; abd doesn't count.
+// Passwords may not contain the letters i, o, or l, as these letters can be mistaken for other characters and are therefore confusing.
+// Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz.
+// For example:
 
 func TestAllowed(t *testing.T) {
 	var test = []struct {
@@ -37,7 +37,6 @@ func TestAllowed(t *testing.T) {
 			t.Errorf("Parse(%s) = %t, expected %t.",
 				test.input, actual, test.expected)
 		}
-
 	}
 }
 
@@ -84,15 +83,14 @@ func TestRising(t *testing.T) {
 			t.Errorf("Convert(%s) = %t, expected %t.",
 				test.input, actual, test.expected)
 		}
-
 	}
 }
 
-//hijklmmn meets the first requirement (because it contains the straight hij) but fails the second requirement requirement (because it contains i and l).
-//abbceffg meets the third requirement (because it repeats bb and ff) but fails the first requirement.
-//abbcegjk fails the third requirement, because it only has one double letter (bb).
-//The next password after abcdefgh is abcdffaa.
-//The next password after ghijklmn is ghjaabcc, because you eventually skip all the passwords that start with ghi..., since i is not allowed.
+// hijklmmn meets the first requirement (because it contains the straight hij) but fails the second requirement requirement (because it contains i and l).
+// abbceffg meets the third requirement (because it repeats bb and ff) but fails the first requirement.
+// abbcegjk fails the third requirement, because it only has one double letter (bb).
+// The next password after abcdefgh is abcdffaa.
+// The next password after ghijklmn is ghjaabcc, because you eventually skip all the passwords that start with ghi..., since i is not allowed.
 
 func TestValid(t *testing.T) {
 	var tests = []struct {
@@ -118,7 +116,6 @@ func TestValid(t *testing.T) {
 			t.Errorf("Convert(%s) = %t, expected %t.",
 				test.input, actual, test.expected)
 		}
-
 	}
 }
 
@@ -127,7 +124,6 @@ func TestBase26(t *testing.T) {
 		input    int
 		expected string
 	}{
-
 		{
 			1,
 			"b",
@@ -203,7 +199,6 @@ func TestBase26ToDecimal(t *testing.T) {
 			t.Errorf("Convert(%s) = %d, expected %d.",
 				test.input, actual, test.expected)
 		}
-
 	}
 }
 
@@ -228,6 +223,5 @@ func TestNextPassword(t *testing.T) {
 			t.Errorf("Convert(%s) = %s, expected %s.",
 				test.input, actual, test.expected)
 		}
-
 	}
 }

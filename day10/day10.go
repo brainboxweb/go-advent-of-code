@@ -16,7 +16,6 @@ func Run(input int, loops int) int {
 
 	var result []int
 	for i := 0; i < loops; i++ {
-
 		if i == 0 {
 			result = Say(inputSlice)
 			continue
@@ -33,7 +32,6 @@ func Say(input []int) []int {
 	var regValue, regCount int
 
 	for _, value := range input {
-
 		regValue, regCount = reg.AddItem(value)
 		if regValue > 0 {
 			output = append(output, regCount)
@@ -41,7 +39,7 @@ func Say(input []int) []int {
 		}
 	}
 
-	//Empty the register
+	// Empty the register
 	regValue, regCount = reg.Empty()
 	if regValue > 0 {
 		output = append(output, regCount)
@@ -58,16 +56,15 @@ type Register struct {
 
 // Add an integer.
 // Returns either notthing... or the previous strng and count
-func (r *Register) AddItem(item int) (int, int) {
-
-	//On a run
+func (r *Register) AddItem(item int) (returnValue, returnCount int) {
+	// On a run
 	if item == r.Value {
 		r.Count++
 		return 0, 0
 	}
-	//Run has ended
-	returnValue := r.Value
-	returnCount := r.Count
+	// Run has ended
+	returnValue = r.Value
+	returnCount = r.Count
 
 	r.Value = item
 	r.Count = 1
@@ -75,10 +72,9 @@ func (r *Register) AddItem(item int) (int, int) {
 	return returnValue, returnCount
 }
 
-func (r *Register) Empty() (int, int) {
-
-	returnValue := r.Value
-	returnCount := r.Count
+func (r *Register) Empty() (returnValue, returnCount int) {
+	returnValue = r.Value
+	returnCount = r.Count
 
 	r.Value = 0
 	r.Count = 0

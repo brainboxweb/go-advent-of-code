@@ -50,8 +50,8 @@ func TestLights(t *testing.T) {
 		},
 	}
 	for _, test := range tests {
-		lights := lights.New(test.input)
-		if actual := lights.GetLightCount(); actual != test.expected {
+		ll := lights.New(test.input)
+		if actual := ll.GetLightCount(); actual != test.expected {
 			t.Errorf("Convert(%s) = %d, expected %d.",
 				test.input, actual, test.expected)
 		}
@@ -73,8 +73,8 @@ func TestAdvancedLights(t *testing.T) {
 		},
 	}
 	for _, test := range tests {
-		lights := lights.NewAdvanced(test.input)
-		if actual := lights.GetTotalBrightness(); actual != test.expected {
+		ll := lights.NewAdvanced(test.input)
+		if actual := ll.GetTotalBrightness(); actual != test.expected {
 			t.Errorf("Convert(%s) = %d, expected %d.",
 				test.input, actual, test.expected)
 		}

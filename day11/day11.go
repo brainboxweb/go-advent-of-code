@@ -4,7 +4,7 @@ func getNextPassword(oldPassword string) string {
 	var newPassword string
 	oldPasswordNumber := base26ToDecimal(oldPassword)
 	for {
-		oldPasswordNumber = oldPasswordNumber + 1
+		oldPasswordNumber++
 		newPassword = base26(oldPasswordNumber)
 		if valid(newPassword) {
 			return newPassword
@@ -21,7 +21,6 @@ func allowed(input string) bool {
 	for _, char := range input {
 		for _, black := range blacklist {
 			if black == string(char) {
-
 				return false
 			}
 		}
@@ -36,12 +35,10 @@ func doubleCount(input string, total int) int {
 	output := ""
 	previous := ""
 	for k, character := range input {
-		if k == 0 {
-			//do nothing
-		} else {
-			//Same chars?
+		if k != 0 {
+			// Same chars?
 			if previous == string(character) {
-				//its a double!
+				// its a double!
 				total++
 				output = input[k+1:]
 				break
@@ -62,7 +59,7 @@ func rising(input string) bool {
 				return true
 			}
 		} else {
-			run = 0 //reset
+			run = 0 // reset
 		}
 		previous = int(char)
 	}
@@ -77,7 +74,7 @@ func base26(num int) string {
 	for pos := 8; pos >= 0 && num > 0; pos-- {
 		character := string(rune(97 + num%26))
 		theString = character + theString
-		num = num / 26
+		num /= 26
 	}
 	return theString
 }
@@ -97,7 +94,7 @@ func base26ToDecimal(input string) int {
 func simplePow(x, y int) int {
 	output := 1
 	for i := 0; i < y; i++ {
-		output = output * x
+		output *= x
 	}
 	return output
 }

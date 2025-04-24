@@ -75,6 +75,8 @@ func TestGetDataString(t *testing.T) {
 	}
 }
 
+//revive:disable
+
 func TestGetDataInt(t *testing.T) {
 	tests := []struct {
 		name              string
@@ -104,6 +106,8 @@ func TestGetDataInt(t *testing.T) {
 		})
 	}
 }
+
+//revive:enable
 
 func TestToXY(t *testing.T) {
 	input := []string{

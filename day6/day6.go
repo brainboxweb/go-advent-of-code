@@ -5,11 +5,11 @@ import (
 )
 
 func Part1(input []string) int {
-	lights := lights.New(input)
-	return lights.GetLightCount()
+	ll := lights.New(input)
+	return ll.GetLightCount()
 }
 
 func Part2(input []string) int {
-	lights := lights.NewAdvanced(input)
-	return lights.GetTotalBrightness()
+	ll := lights.NewAdvanced(input)
+	return ll.GetTotalBrightness()
 }

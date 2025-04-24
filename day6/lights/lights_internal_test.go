@@ -65,12 +65,12 @@ func TestToggle(t *testing.T) {
 	key := "0,0"
 	ll.lights[key] = light{}
 
-	ll.toggle(key) //Should switch off
+	ll.toggle(key) // Should switch off
 	_, ok := ll.lights[key]
 	expected := false
 	require.Equal(t, expected, ok)
 
-	ll.toggle(key) //Should switch on
+	ll.toggle(key) // Should switch on
 	_, ok2 := ll.lights[key]
 	expected2 := true
 	require.Equal(t, expected2, ok2)
@@ -81,17 +81,17 @@ func TestProcesslight(t *testing.T) {
 	key := "0,0"
 	ll.lights[key] = light{}
 
-	ll.processlight(key, "off") //Should switch off
+	ll.processlight(key, "off") // Should switch off
 	_, ok := ll.lights[key]
 	expected := false
 	require.Equal(t, expected, ok)
 
-	ll.processlight(key, "on") //Should switch on
+	ll.processlight(key, "on") // Should switch on
 	_, ok2 := ll.lights[key]
 	expected2 := true
 	require.Equal(t, expected2, ok2)
 
-	ll.processlight(key, "toggle") //Should switch off
+	ll.processlight(key, "toggle") // Should switch off
 	_, ok3 := ll.lights[key]
 	expected3 := false
 	require.Equal(t, expected3, ok3)
@@ -111,7 +111,7 @@ func TestInstruction(t *testing.T) {
 	require.Equal(t, expected2, ok2)
 }
 
-//---  Advanced Light
+// ---  Advanced Light
 
 func TestSwitchOnAdjusted(t *testing.T) {
 	ll := NewAdvanced(nil)
@@ -121,7 +121,7 @@ func TestSwitchOnAdjusted(t *testing.T) {
 	expected := light{Level: 1}
 	require.Equal(t, expected, ll.lights[key])
 
-	ll.switchOn(key) //Switch on again
+	ll.switchOn(key) // Switch on again
 	expected2 := light{Level: 2}
 	require.Equal(t, expected2, ll.lights[key])
 }
@@ -135,7 +135,7 @@ func TestSwitchOffAdjusted(t *testing.T) {
 	expected := light{Level: 1}
 	require.Equal(t, expected, ll.lights[key])
 
-	ll.switchOff(key) //should delete it
+	ll.switchOff(key) // should delete it
 
 	_, ok2 := ll.lights[key]
 	expected2 := false
