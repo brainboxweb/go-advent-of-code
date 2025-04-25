@@ -1,17 +1,12 @@
 package wizardry
 
 import (
-<<<<<<<< HEAD:_22_Wizards/main_test.go
-========
 	"testing"
 
->>>>>>>> acc18fe (Day 22):day22/wizardry/wizardry_internal_test.go
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestTakeTurn(t *testing.T) {
-
 	battle := Battle{}
 
 	player := Player{"player", 250, 10, 0, []Spell{}}
@@ -54,7 +49,6 @@ func TestTakeTurn(t *testing.T) {
 }
 
 func TestTakeTurnAgain(t *testing.T) {
-
 	player := Player{"player", 250, 10, 0, []Spell{}}
 	boss := Player{"boss", 0, 14, 8, []Spell{}}
 
@@ -125,154 +119,7 @@ func TestTakeTurnAgain(t *testing.T) {
 
 	battle := Battle{}
 
-	isHard := false
-
-	_, winner := battle.battle(player, boss, isHard)
+	_, winner := battle.battle(player, boss)
 
 	require.Equal(t, "player", winner.name)
 }
-
-<<<<<<<< HEAD:_22_Wizards/main_test.go
-func TestBattles(t *testing.T) {
-
-	recharge := Spell{
-		"recharge",
-		229,
-		0,
-		0,
-		Effect{
-			5,
-			0,
-			0,
-			101,
-		},
-	}
-
-	sheild := Spell{
-		"sheild",
-		113,
-		0,
-		0,
-		Effect{
-			6,
-			7,
-			0,
-			0,
-		},
-	}
-
-	drain := Spell{
-		"drain",
-		73,
-		2,
-		2,
-		Effect{},
-	}
-
-	poison := Spell{
-		"poison",
-		173,
-		0,
-		0,
-		Effect{
-			6,
-			0,
-			3,
-			0,
-		},
-	}
-
-	magicMissile := Spell{
-		"magicMissile",
-		53,
-		4,
-		0,
-		Effect{},
-	}
-
-	spells := []Spell{
-		recharge,
-		sheild,
-		drain,
-		poison,
-		magicMissile,
-	}
-
-	isHard := false
-	minimumCost := Battling(spells, []Spell{}, 1000000, isHard)
-
-	require.Equal(t, 953, minimumCost)
-}
-
-func TestBattlesHard(t *testing.T) {
-
-	recharge := Spell{
-		"recharge",
-		229,
-		0,
-		0,
-		Effect{
-			5,
-			0,
-			0,
-			101,
-		},
-	}
-
-	sheild := Spell{
-		"sheild",
-		113,
-		0,
-		0,
-		Effect{
-			6,
-			7,
-			0,
-			0,
-		},
-	}
-
-	drain := Spell{
-		"drain",
-		73,
-		2,
-		2,
-		Effect{},
-	}
-
-	poison := Spell{
-		"poison",
-		173,
-		0,
-		0,
-		Effect{
-			6,
-			0,
-			3,
-			0,
-		},
-	}
-
-	magicMissile := Spell{
-		"magicMissile",
-		53,
-		4,
-		0,
-		Effect{},
-	}
-
-	spells := []Spell{
-		recharge,
-		sheild,
-		drain,
-		poison,
-		magicMissile,
-	}
-
-	isHard := true
-	minimumCost := Battling(spells, []Spell{}, 1000000, isHard)
-
-	require.Equal(t, 1289, minimumCost)
-}
-========
->>>>>>>> acc18fe (Day 22):day22/wizardry/wizardry_internal_test.go
