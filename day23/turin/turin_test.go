@@ -38,8 +38,7 @@ func TestParse(t *testing.T) {
 }
 
 func TestParseInstructions(t *testing.T) {
-
-	//expected
+	// expected
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"jio", "a", 2}
 	inst3 := Instruction{"tpl", "a", 0}
@@ -69,19 +68,18 @@ func TestRun(t *testing.T) {
 		expectedA       int
 		expectedB       int
 	}{
-				{
-					`inc a
+		{
+			`inc a
 jio a, +2
 tpl a
 inc a`,
-					0,
-					2,
-					0,
-				},
+			0,
+			2,
+			0,
+		},
 	}
 
 	for _, test := range tests {
-
 		a, b := Run(test.input, test.intialValueForA)
 
 		if a != test.expectedA {
@@ -98,7 +96,6 @@ inc a`,
 
 // tpl r sets register r to triple its current value, then continues with the next instruction.
 func TestHlf(t *testing.T) {
-
 	reg := Register{"a", 10}
 	hlf(&reg)
 
@@ -109,7 +106,6 @@ func TestHlf(t *testing.T) {
 
 // tpl r sets register r to triple its current value, then continues with the next instruction.
 func TestTpl(t *testing.T) {
-
 	reg := Register{"a", 10}
 	tpl(&reg)
 
@@ -120,7 +116,6 @@ func TestTpl(t *testing.T) {
 
 // inc r increments register r, adding 1 to it, then continues with the next instruction.
 func TestInc(t *testing.T) {
-
 	reg := Register{"a", 7}
 	inc(&reg)
 
@@ -131,7 +126,6 @@ func TestInc(t *testing.T) {
 
 // jmp offset is a jump; it continues with the instruction offset away relative to itself.
 func TestJump(t *testing.T) {
-
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"jmp", "a", 2}
 	inst3 := Instruction{"tpl", "a", 0}
@@ -144,18 +138,16 @@ func TestJump(t *testing.T) {
 	set.Add(inst3)
 	set.Add(inst4)
 
-	set.Fetch() //the increment
-	set.Fetch() //The jump itself
-	set.Jump(2) //Jump two (manually)
+	set.Fetch() // the increment
+	set.Fetch() // The jump itself
+	set.Jump(2) // Jump two (manually)
 
-	result, _ := set.Fetch() //expect the second inc
+	result, _ := set.Fetch() // expect the second inc
 	require.Equal(t, inst4, result)
-
 }
 
 // jie r, offset is like jmp, but only jumps if register r is even ("jump if even").
 func TestJie(t *testing.T) {
-
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"jie", "a", 2}
 	inst3 := Instruction{"tpl", "a", 0}
@@ -168,19 +160,17 @@ func TestJie(t *testing.T) {
 	set.Add(inst3)
 	set.Add(inst4)
 
-	set.Fetch() //the increment
-	set.Fetch() //The jump itself
+	set.Fetch() // the increment
+	set.Fetch() // The jump itself
 
-	set.Jie(2, 100) //Jump if even
+	set.Jie(2, 100) // Jump if even
 
-	result, _ := set.Fetch() //expect the second inc
+	result, _ := set.Fetch() // expect the second inc
 	require.Equal(t, inst4, result)
-
 }
 
 // jie r, offset is like jmp, but only jumps if register r is even ("jump if even").
 func TestJieAgain(t *testing.T) {
-
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"jie", "a", 2}
 	inst3 := Instruction{"tpl", "a", 0}
@@ -193,18 +183,17 @@ func TestJieAgain(t *testing.T) {
 	set.Add(inst3)
 	set.Add(inst4)
 
-	set.Fetch() //the increment
-	set.Fetch() //The jump itself
+	set.Fetch() // the increment
+	set.Fetch() // The jump itself
 
-	set.Jie(2, 99) //Jump if even. It's odd... so nothing really happens
+	set.Jie(2, 99) // Jump if even. It's odd... so nothing really happens
 
-	result, _ := set.Fetch() //expect the second inc
+	result, _ := set.Fetch() // expect the second inc
 	require.Equal(t, inst3, result)
 }
 
 // jio r, offset is like jmp, but only jumps if register r is 1 ("jump if one", not odd).
 func TestJio(t *testing.T) {
-
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"jie", "a", 2}
 	inst3 := Instruction{"tpl", "a", 0}
@@ -217,10 +206,10 @@ func TestJio(t *testing.T) {
 	set.Add(inst3)
 	set.Add(inst4)
 
-	set.Fetch() //the increment
+	set.Fetch() // the increment
 	set.Fetch() // the jump itself
 
-	set.Jio(2, 1) //Jump if ONE (manuanlly)
+	set.Jio(2, 1) // Jump if ONE (manuanlly)
 
 	result, _ := set.Fetch()
 	require.Equal(t, inst4, result)
@@ -228,7 +217,6 @@ func TestJio(t *testing.T) {
 
 // jio r, offset is like jmp, but only jumps if register r is 1 ("jump if one", not odd).
 func TestJioAgain(t *testing.T) {
-
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"jie", "a", 2}
 	inst3 := Instruction{"tpl", "a", 0}
@@ -241,16 +229,15 @@ func TestJioAgain(t *testing.T) {
 	set.Add(inst3)
 	set.Add(inst4)
 
-	set.Fetch() //the increment
+	set.Fetch() // the increment
 
-	set.Jio(2, 11) //Jump if ONE
+	set.Jio(2, 11) // Jump if ONE
 
 	result, _ := set.Fetch()
 	require.Equal(t, inst2, result)
 }
 
 func TestFetch(t *testing.T) {
-
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"hlf", "a", 0}
 
@@ -267,7 +254,6 @@ func TestFetch(t *testing.T) {
 }
 
 func TestOffset(t *testing.T) {
-
 	inst1 := Instruction{"inc", "a", 0}
 	inst2 := Instruction{"hlf", "a", 0}
 	inst3 := Instruction{"tpl", "a", 0}
@@ -282,14 +268,13 @@ func TestOffset(t *testing.T) {
 
 	set.Fetch()
 
-	set.offset(2) //Jump over inst2 and inst3
+	set.offset(2) // Jump over inst2 and inst3
 
 	result2, _ := set.Fetch()
 	require.Equal(t, inst4, result2)
 }
 
 func TestExecute(t *testing.T) {
-
 	//	inc a
 	//	jio a, +2
 	//	tpl a

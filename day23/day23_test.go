@@ -25,7 +25,6 @@ func TestRun(t *testing.T) {
 	}
 
 	for _, test := range tests {
-
 		result := day23.Run(test.input, test.intialValueForA)
 
 		if result != test.expectedB {

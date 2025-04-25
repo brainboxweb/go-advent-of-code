@@ -7,8 +7,7 @@ import (
 	"strconv"
 )
 
-func Run(input string, initialValueForA int) (int, int) {
-
+func Run(input string, initialValueForA int) (valA, valB int) {
 	instructionSet := parseInstructions(input)
 
 	registers := make(map[string]*Register)
@@ -21,7 +20,6 @@ func Run(input string, initialValueForA int) (int, int) {
 }
 
 func execute(set *InstructionSet, registers map[string]*Register) map[string]*Register {
-
 	for {
 		inst, ok := set.Fetch()
 
@@ -64,12 +62,11 @@ func parseInstructions(input string) InstructionSet {
 }
 
 func parse(phrase string) Instruction {
-
-	//Action
+	// Action
 	var validAction = regexp.MustCompile(`([a-z]{3})`)
 	action := validAction.FindString(phrase)
 
-	//name of the register
+	// name of the register
 	registerName := ""
 	var validName = regexp.MustCompile(`\s([a-z])`)
 	matches := validName.FindStringSubmatch(phrase)
@@ -77,7 +74,7 @@ func parse(phrase string) Instruction {
 		registerName = matches[1]
 	}
 
-	//Incrememnt
+	// Incrememnt
 	increment := 0
 	var validIncrement = regexp.MustCompile(`([+-]\d+)`)
 	match2 := validIncrement.FindString(phrase)
@@ -97,15 +94,15 @@ type Register struct {
 }
 
 func hlf(reg *Register) {
-	reg.Value = reg.Value / 2
+	reg.Value /= 2
 }
 
 func inc(reg *Register) {
-	reg.Value = reg.Value + 1
+	reg.Value++
 }
 
 func tpl(reg *Register) {
-	reg.Value = reg.Value * 3
+	reg.Value *= 3
 }
 
 type Instruction struct {
@@ -120,7 +117,7 @@ type InstructionSet struct {
 }
 
 func (s *InstructionSet) Add(inst Instruction) {
-	//nil map
+	// nil map
 	if s.instructions == nil {
 		s.instructions = make(map[int]Instruction)
 	}
@@ -154,5 +151,5 @@ func (s *InstructionSet) Jio(count int, registerValue int) {
 }
 
 func (s *InstructionSet) offset(count int) {
-	s.currentIndex = s.currentIndex + count
+	s.currentIndex += count
 }
