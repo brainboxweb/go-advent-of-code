@@ -51,6 +51,7 @@ func Part2(input string, time int) int {
 		reindeer := race.NewReindeer(name, speed, flyTime, restTime)
 		r.AddReindeer(reindeer)
 	}
+
 	r.RunRace(time)
 	return r.GetTopScore()
 }
