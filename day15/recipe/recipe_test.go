@@ -8,27 +8,27 @@ import (
 )
 
 func TestScore(t *testing.T) {
-	Butterscotch := recipe.NewIngredient("Butterscotch", -1, -2, 6, 3, 8)
-	Cinnamon := recipe.NewIngredient("Cinnamon", 2, 3, -2, -1, 3)
+	butterscotch := recipe.NewIngredient("Butterscotch", -1, -2, 6, 3, 8)
+	cinnamon := recipe.NewIngredient("Cinnamon", 2, 3, -2, -1, 3)
 
-	recipe := recipe.Recipe{}
-	recipe.AddIngredient(Butterscotch)
-	recipe.AddIngredient(Cinnamon)
+	r := recipe.Recipe{}
+	r.AddIngredient(butterscotch)
+	r.AddIngredient(cinnamon)
 
-	recipe.SetRatios([]int{44, 56})
+	r.SetRatios([]int{44, 56})
 
 	expected := 62842880
-	result := recipe.GetScore(0)
+	result := r.GetScore(0)
 	require.Equal(t, expected, result)
 }
 
 func TestScoreMixing(t *testing.T) {
-	Butterscotch := recipe.NewIngredient("Butterscotch", -1, -2, 6, 3, 8)
-	Cinnamon := recipe.NewIngredient("Cinnamon", 2, 3, -2, -1, 3)
+	butterscotch := recipe.NewIngredient("Butterscotch", -1, -2, 6, 3, 8)
+	cinnamon := recipe.NewIngredient("Cinnamon", 2, 3, -2, -1, 3)
 
 	r := recipe.Recipe{}
-	r.AddIngredient(Butterscotch)
-	r.AddIngredient(Cinnamon)
+	r.AddIngredient(butterscotch)
+	r.AddIngredient(cinnamon)
 
 	ratios := recipe.MixRatios(len(r.RecipeIngredients))
 
