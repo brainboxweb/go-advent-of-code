@@ -16,15 +16,14 @@ type Reindeer struct {
 }
 
 func (r *Reindeer) GetDistance(time int) int {
-
 	totalFlyTime := 0
 
-	//Loops
+	// Loops
 	loopTime := r.flyTime + r.restTime
 	chunks := time / loopTime // Taking advantance of integer maths
 	totalFlyTime += chunks * r.flyTime
 
-	//Partials
+	// Partials
 	remainderTime := time - (chunks * loopTime)
 	if remainderTime > r.flyTime {
 		totalFlyTime += r.flyTime
@@ -40,8 +39,7 @@ type Race struct {
 }
 
 func (race *Race) AddReindeer(reindeer *Reindeer) {
-
-	//Avoid nil map panic
+	// Avoid nil map panic
 	if race.scores == nil {
 		race.scores = make(map[*Reindeer]int)
 	}
@@ -49,17 +47,16 @@ func (race *Race) AddReindeer(reindeer *Reindeer) {
 }
 
 func (race *Race) RunRace(time int) {
-
-	//Award points every second
+	// Award points every second
 	for i := 1; i < time+1; i++ {
 		dists := distances{}
 
-		for rein, _ := range race.scores {
+		for rein := range race.scores {
 			dist := distance{rein, rein.GetDistance(i)}
 			dists = append(dists, dist)
 		}
 
-		//Dists still hse referecen to the real raindeer
+		// Dists still has reference to the real reindeer
 		sort.Sort(dists)
 
 		winningDistance := dists[0].Distance
@@ -69,7 +66,6 @@ func (race *Race) RunRace(time int) {
 				theReindeer := dists[i].Reindeer
 				race.scores[theReindeer]++
 			}
-
 		}
 	}
 }
@@ -84,7 +80,7 @@ func (race *Race) GetTopScore() int {
 	return topScore
 }
 
-// For sorting
+// ------- sorting
 type distance struct {
 	Reindeer *Reindeer
 	Distance int
@@ -95,9 +91,5 @@ type distances []distance
 func (d distances) Len() int      { return len(d) }
 func (d distances) Swap(i, j int) { d[i], d[j] = d[j], d[i] }
 func (d distances) Less(i, j int) bool {
-	if d[i].Distance > d[j].Distance { //reverse search
-		return true
-	} else {
-		return false
-	}
+	return d[i].Distance > d[j].Distance
 }
