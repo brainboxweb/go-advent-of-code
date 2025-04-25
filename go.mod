@@ -3,6 +3,7 @@ module github.com/brainboxweb/advent
 go 1.18
 
 require (
+	github.com/mxschmitt/golang-combinations v1.2.0
 	github.com/nightlyone/permutation v0.0.0-20140104060343-85d52f6c3a35
 	github.com/stretchr/testify v1.10.0
 )
