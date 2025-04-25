@@ -8,9 +8,19 @@ import (
 	"strings"
 )
 
-func Part1(input string, known string, advanced bool) int {
+func Part1(input string, known string) int {
+	sues, knowns := setup(input, known)
 
-	//The Sues
+	return findMatch(sues, knowns)
+}
+
+func Part2(input, known string) int {
+	sues, knowns := setup(input, known)
+
+	return findMatchAdvanced(sues, knowns)
+}
+
+func setup(input string, known string) ([]Sue, []map[string]int) {
 	b := bytes.NewBufferString(input)
 	scanner := bufio.NewScanner(b)
 
@@ -23,7 +33,7 @@ func Part1(input string, known string, advanced bool) int {
 		sues = append(sues, sue)
 	}
 
-	// The know properties
+	// The known properties
 	b2 := bytes.NewBufferString(known)
 	scanner2 := bufio.NewScanner(b2)
 
@@ -34,28 +44,66 @@ func Part1(input string, known string, advanced bool) int {
 
 		knowns = append(knowns, known)
 	}
-
-	return findMatch(sues, knowns, advanced)
+	return sues, knowns
 }
 
-func findMatch(sues []Sue, knowns []map[string]int, advanced bool) int {
-
-	type match struct {
-		sue        Sue
-		matchCount int
-	}
-
+func findMatch(sues []Sue, knowns []map[string]int) int {
 	matches := map[int]Sue{}
 
 	for _, sue := range sues {
 		matchCount := 0
 		for _, known := range knowns {
-			//Range over the knowns
+			// Range over the knowns
 			for key, value := range known {
-				//range over the sue properties
+				// range over the sue properties
 				for key2, value2 := range sue.properies {
+					// For part towo, needtochnange the match types
+					/*
+						In particular, the cats and trees readings indicates that there are greater than that many
+						(due to the unpredictable nuclear decay of cat dander and tree pollen), while the pomeranians
+						 and goldfish readings indicate that there are fewer than that many (due to the modial
+						 interaction of magnetoreluctance).
+					*/
+					if key != key2 {
+						continue
+					}
+					if value == value2 {
+						matchCount++
+					}
+				}
+			}
+		}
+		if matchCount == 0 {
+			continue
+		}
+		// Store the matches
+		matches[matchCount] = sue
+	}
 
-					//For part towo, needtochnange the match types
+	// Sort
+	var keys []int
+	for k := range matches {
+		keys = append(keys, k)
+	}
+	sort.Ints(keys)
+
+	// Need the last one = the nest match
+	requiredSue := matches[keys[len(keys)-1]]
+
+	return requiredSue.index
+}
+
+func findMatchAdvanced(sues []Sue, knowns []map[string]int) int {
+	matches := map[int]Sue{}
+
+	for _, sue := range sues {
+		matchCount := 0
+		for _, known := range knowns {
+			// Range over the knowns
+			for key, value := range known {
+				// range over the sue properties
+				for key2, value2 := range sue.properies {
+					// For part towo, needtochnange the match types
 					/*
 						In particular, the cats and trees readings indicates that there are greater than that many
 						(due to the unpredictable nuclear decay of cat dander and tree pollen), while the pomeranians
@@ -66,31 +114,24 @@ func findMatch(sues []Sue, knowns []map[string]int, advanced bool) int {
 					if key != key2 {
 						continue
 					}
-
-					if advanced == false {
-						if value == value2 {
+					switch key {
+					case "cats":
+						fallthrough
+					case "trees":
+						// greater
+						if value2 > value {
 							matchCount++
 						}
-					} else {
-						switch key {
-						case "cats":
-							fallthrough
-						case "trees":
-							//greater
-							if value2 > value {
-								matchCount++
-							}
-						case "pomeranians":
-							fallthrough
-						case "goldfish":
-							//less
-							if value2 < value {
-								matchCount++
-							}
-						default:
-							if value == value2 {
-								matchCount++
-							}
+					case "pomeranians":
+						fallthrough
+					case "goldfish":
+						// less
+						if value2 < value {
+							matchCount++
+						}
+					default:
+						if value == value2 {
+							matchCount++
 						}
 					}
 				}
@@ -99,18 +140,18 @@ func findMatch(sues []Sue, knowns []map[string]int, advanced bool) int {
 		if matchCount == 0 {
 			continue
 		}
-		//Store the matches
+		// Store the matches
 		matches[matchCount] = sue
 	}
 
-	//Sort
+	// Sort
 	var keys []int
-	for k, _ := range matches {
+	for k := range matches {
 		keys = append(keys, k)
 	}
 	sort.Ints(keys)
 
-	//Need the last one = the nest match
+	// Need the last one = the nest match
 	requiredSue := matches[keys[len(keys)-1]]
 
 	return requiredSue.index
@@ -147,7 +188,6 @@ func parse(phrase string) Sue {
 // children: 3
 // cats: 7
 func parseKnown(phrase string) map[string]int {
-
 	phrase = strings.Trim(phrase, ".")
 	tokens := strings.Split(phrase, " ")
 

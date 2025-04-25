@@ -8,7 +8,6 @@ import (
 )
 
 func TestRun(t *testing.T) {
-
 	var test = []struct {
 		input    string
 		known    string
@@ -37,7 +36,7 @@ perfumes: 1`,
 		},
 	}
 	for _, test := range test {
-		if actual := day16.Part1(test.input, test.known, false); actual != test.expected {
+		if actual := day16.Part1(test.input, test.known); actual != test.expected {
 			t.Errorf("Parse(%s) = %d, expected %d.",
 				test.input, actual, test.expected)
 		}
@@ -66,7 +65,7 @@ perfumes: 1`,
 		},
 	}
 	for _, test := range test {
-		if actual := day16.Part1(test.input, test.known, true); actual != test.expected {
+		if actual := day16.Part2(test.input, test.known); actual != test.expected {
 			t.Errorf("Parse(%s) = %d, expected %d.",
 				test.input, actual, test.expected)
 		}
@@ -79,5 +78,4 @@ func fileToString(fullpath string) string {
 		panic("not expected")
 	}
 	return string(b) // convert content to a 'string'
-
 }
