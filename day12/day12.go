@@ -1,4 +1,4 @@
-package main
+package day12
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 )
 
 func Count(input string) int {
-	re := regexp.MustCompile("-?[0-9]+") //-?[0-9]\d*(\.\d+)?
+	re := regexp.MustCompile("-?[0-9]+")
 	matches := re.FindAllString(input, -1)
 	var total int
 	for _, value := range matches {
@@ -19,35 +19,33 @@ func Count(input string) int {
 }
 
 func Count2(input string) int {
-
-	var f []interface{}
+	var f []any
 	err := json.Unmarshal([]byte(input), &f)
 	if err != nil {
-		panic("Didnt expect that")
+		panic("Not expected")
 	}
-	total := parseArray(f) //Need to choose one or the other :(
+	total := parseArray(f)
 
 	return total
 }
 
-func parseMap(aMap map[string]interface{}) int {
+func parseMap(aMap map[string]any) int {
 	var total int
 	for _, val := range aMap {
 		switch concreteVal := val.(type) {
-		case map[string]interface{}:
-			total += parseMap(val.(map[string]interface{}))
-		case []interface{}:
-			total += parseArray(val.([]interface{}))
+		case map[string]any:
+			total += parseMap(val.(map[string]any))
+		case []any:
+			total += parseArray(val.([]any))
 		default:
-
 			if concreteVal == "red" {
-				//just return - discard the subtotal for this entire node
+				// just return - discard the subtotal for this entire node
 				return 0
 			}
 			conc := fmt.Sprintf("%v", concreteVal)
 			integer, err := strconv.Atoi(conc)
-			if err != err {
-				panic("oh dear...")
+			if err != nil {
+				continue
 			}
 			total += integer
 		}
@@ -55,19 +53,19 @@ func parseMap(aMap map[string]interface{}) int {
 	return total
 }
 
-func parseArray(anArray []interface{}) int {
+func parseArray(anArray []any) int {
 	var total int
 	for _, val := range anArray {
 		switch concreteVal := val.(type) {
-		case map[string]interface{}:
-			total += parseMap(val.(map[string]interface{}))
-		case []interface{}:
-			total += parseArray(val.([]interface{}))
+		case map[string]any:
+			total += parseMap(val.(map[string]any))
+		case []any:
+			total += parseArray(val.([]any))
 		default:
 			conc := fmt.Sprintf("%v", concreteVal)
 			integer, err := strconv.Atoi(conc)
-			if err != err {
-				panic("oh dear...")
+			if err != nil {
+				continue
 			}
 			total += integer
 		}
