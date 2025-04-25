@@ -1,12 +1,12 @@
 package day18
 
 import (
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestParse(t *testing.T) {
-
 	input := `.#.#.#
 ...##.
 #....#
