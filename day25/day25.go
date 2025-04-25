@@ -1,9 +1,6 @@
 package day25
 
-import ()
-
 func run(start, targetX, targetY int) int {
-
 	var row, col int
 	if targetX > targetY {
 		row = targetX * 2
@@ -25,7 +22,7 @@ func run(start, targetX, targetY int) int {
 	var lastValue int
 	lastValue = int(start)
 	for {
-		//taking the previous one, multiplying it by 252533, and then keeping the remainder from dividing that value by 33554393.
+		// taking the previous one, multiplying it by 252533, and then keeping the remainder from dividing that value by 33554393.
 		newValue := (lastValue * 252533) % 33554393
 		x, y = step(x, y)
 
@@ -38,14 +35,14 @@ func run(start, targetX, targetY int) int {
 }
 
 func step(x, y int) (x1, y1 int) {
-	//At the top?
-	if y == 1 { //need a restart
+	// At the top?
+	if y == 1 { // need a restart
 		x1 = 1
 		y1 = x + 1
-		return
+		return x1, y1
 	}
-	//Move up and along
+	// Move up and along
 	x1 = x + 1
 	y1 = y - 1
-	return
+	return x1, y1
 }

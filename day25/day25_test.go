@@ -62,7 +62,6 @@ func TestStep(t *testing.T) {
 }
 
 func TestRun(t *testing.T) {
-
 	var tests = []struct {
 		start    int
 		targetX  int
