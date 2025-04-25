@@ -46,7 +46,6 @@ func RunWithGuest(input string) int {
 
 		// extraGuest
 		persons.AddPerson("Guest")
-
 	}
 	return relationships.GetHappiest(persons)
 }
