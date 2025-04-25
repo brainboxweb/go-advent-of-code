@@ -6,12 +6,7 @@ import (
 	"github.com/brainboxweb/advent/day24"
 )
 
-// Damn. It's unstable
-// 72050269
-
-
 func TestRun(t *testing.T) {
-
 	var tests = []struct {
 		input      string
 		groupCount int
@@ -79,6 +74,6 @@ const day24data = `1
 109
 113`
 
-//89,103,107,109 = 408
-//23,41,43,47,53,59,73,79,101 = 519
-//1,2,3,7,11,13,17,19,31,37,61,67,71,83,97
+// 89,103,107,109 = 408
+// 23,41,43,47,53,59,73,79,101 = 519
+// 1,2,3,7,11,13,17,19,31,37,61,67,71,83,97
