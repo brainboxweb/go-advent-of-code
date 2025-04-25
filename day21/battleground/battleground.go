@@ -1,8 +1,6 @@
 package battleground
 
-import (
-// "fmt"
-)
+//  "fmt"
 
 /*
 Weapons:    Cost  Damage  Armor
@@ -57,26 +55,22 @@ type Ring struct {
 }
 
 func Play() (minimumCost, maximumCost int) {
-
-	//	Hit Points: 109
-	//	Damage: 8
-	//	Armor: 2
+	// 	Hit Points: 109
+	// 	Damage: 8
+	// 	Armor: 2
 	player := Player{"player", 100, 0, 0}
-	boss := Player{"boss", 109, 8, 2} // <-- test input
+	boss := Player{"boss", 109, 8, 2} //  <-- test input
 
 	minimumCost = 1000000
 	maximumCost = 0
 
 	weapons := weapons()
 	for _, weapon := range weapons {
-
 		armour := armour()
-
 		for _, armourItem := range armour {
 			armourSlice := []Armour{armourItem}
 			theRings := rings()
 			for _, ring := range theRings {
-
 				ringSlice := []Ring{ring}
 
 				winner, cost := doIt(player, boss, weapon, armourSlice, ringSlice)
@@ -88,7 +82,7 @@ func Play() (minimumCost, maximumCost int) {
 				}
 
 				theRings2 := theRings
-				//mix in another ring
+				// mix in another ring
 				for _, ring2 := range theRings2 {
 					if ring == ring2 {
 						continue
@@ -110,21 +104,19 @@ func Play() (minimumCost, maximumCost int) {
 }
 
 func doIt(player, boss Player, weapon Weapon, armour []Armour, rings []Ring) (winner Player, cost int) {
-
-	//	fmt.Println("\n\n\n--------------------\n",weapon, armour, rings )
 	cost = 0
 
-	//Weapon
+	// Weapon
 	player.damage += weapon.damage
 	cost += weapon.cost
 
-	//Armour
+	// Armour
 	for _, armourItem := range armour {
 		player.armour += armourItem.armour
 		cost += armourItem.cost
 	}
 
-	//Rings
+	// Rings
 	for _, ring := range rings {
 		player.armour += ring.armour
 		player.damage += ring.damage
@@ -137,15 +129,14 @@ func doIt(player, boss Player, weapon Weapon, armour []Armour, rings []Ring) (wi
 }
 
 func battle(player, boss Player) (winner Player) {
-
 	for {
-		//Player goes first
+		// Player goes first
 		attack(&player, &boss)
 		if boss.hitPoints <= 0 {
 			return player
 		}
 
-		//boss goes second
+		// boss goes second
 		attack(&boss, &player)
 		if player.hitPoints <= 0 {
 			return boss
@@ -161,11 +152,10 @@ func attack(attacker, defender *Player) {
 		damage = 1
 	}
 	defender.hitPoints -= damage
-	//	fmt.Printf("\nThe %s deals %d-%d = %d damage; the %s goes down to %d hit points.", attacker.name, attacker.damage, defender.armour, damage, defender.name, defender.hitPoints)
+	// 	fmt.Printf("\nThe %s deals %d-%d = %d damage; the %s goes down to %d hit points.", attacker.name, attacker.damage, defender.armour, damage, defender.name, defender.hitPoints)
 }
 
 func weapons() []Weapon {
-
 	dagger := Weapon{"Dagger", 8, 4}
 	shortsword := Weapon{"Shortsword", 10, 5}
 	warhammer := Weapon{"Warhammer", 25, 6}
@@ -183,7 +173,6 @@ func weapons() []Weapon {
 }
 
 func armour() []Armour {
-
 	dummy := Armour{"DUMMY", 0, 0}
 	leather := Armour{"Leather", 13, 1}
 	chainmail := Armour{"Chainmail", 31, 2}
@@ -203,7 +192,6 @@ func armour() []Armour {
 }
 
 func rings() []Ring {
-
 	da0 := Ring{"DUMMY", 0, 0, 0}
 	da1 := Ring{"Damage +1", 25, 1, 0}
 	da2 := Ring{"Damage +2", 50, 2, 0}
