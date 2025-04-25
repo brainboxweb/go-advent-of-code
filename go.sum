@@ -1,5 +1,7 @@
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/mxschmitt/golang-combinations v1.2.0 h1:V5E7MncIK8Yr1SL/SpdqMuSquFsfoIs5auI7Y3n8z14=
+github.com/mxschmitt/golang-combinations v1.2.0/go.mod h1:RCm5eR03B+JrBOMRDLsKZWShluXdrHu+qwhPEJ0miBM=
 github.com/nightlyone/permutation v0.0.0-20140104060343-85d52f6c3a35 h1:DLQABTzITwRoS0g7GH+tdOMI92EhX/C5lW4vrrfJaTw=
 github.com/nightlyone/permutation v0.0.0-20140104060343-85d52f6c3a35/go.mod h1:x08SraJ5kV3cpl/3I2M92R+Ab7KcNdg4HLBLrxG30Ro=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
