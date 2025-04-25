@@ -1,14 +1,14 @@
 package elements
 
-import (
-	"math/rand"
-)
+import "math/rand"
+
+//revive:disable:max-public-structs
 
 type Element string
 
 // Just one transformation
 type Transformation struct {
-	objectElement Element //May not be needed
+	objectElement Element // May not be needed
 	targets       []Element
 }
 
@@ -23,16 +23,12 @@ type Transformations struct {
 
 func (t *Transformations) AddTransformation(transformation Transformation) {
 	object := transformation.objectElement
-	//Avoid nil map panic
+	// Avoid nil map panic
 	if t.transformations == nil {
 		t.transformations = make(map[Element][]Transformation)
 	}
-	_, ok := t.transformations[object]
-	if !ok {
-		t.transformations[object] = append(t.transformations[object], transformation)
-	} else {
-		t.transformations[object] = append(t.transformations[object], transformation)
-	}
+
+	t.transformations[object] = append(t.transformations[object], transformation)
 }
 
 type Molecule struct {
@@ -49,13 +45,13 @@ func (m Molecule) signature() string {
 
 func (m *Molecule) swapElement(index int, elements []Element) {
 	newElements := []Element{}
-	//Append the leftmost parts of the original
+	// Append the leftmost parts of the original
 	if index > 0 {
 		newElements = append(newElements, m.Elements[:index]...)
 	}
-	//Append the new elements
+	// Append the new elements
 	newElements = append(newElements, elements...)
-	//Append the rightmost part of the
+	// Append the rightmost part of the
 	if index < len(m.Elements)-1 {
 		newElements = append(newElements, m.Elements[index+1:]...)
 	}
@@ -65,13 +61,13 @@ func (m *Molecule) swapElement(index int, elements []Element) {
 func (t *Transformations) Transform(molecule Molecule) []Molecule {
 	newMolecules := []Molecule{}
 	for k, element := range molecule.Elements {
-		//Apply all transformations to thie elemnt
-		//Check for matching transformation
+		// Apply all transformations to thie element
+		// Check for matching transformation
 		_, ok := t.transformations[element]
 		if !ok {
-			continue //nothing to do
+			continue // nothing to do
 		}
-		//A new moelcule for EACH translation
+		// A new moelcule for EACH translation
 		for _, transformation := range t.transformations[element] {
 			newMolecule := molecule
 			newMolecule.swapElement(k, transformation.targets)
@@ -90,10 +86,11 @@ func CountUnique(molecules []Molecule) int {
 }
 
 func Shuffle(slc Transforms) {
-	N := len(slc)
-	for i := 0; i < N; i++ {
+	cnt := len(slc)
+	for i := 0; i < cnt; i++ {
 		// choose index uniformly in [i, N-1]
-		r := i + rand.Intn(N-i)
+		// r := i + rand.Intn(cnt-i)
+		r := i + rand.Intn(cnt-i) // #nosec G404
 		slc[r], slc[i] = slc[i], slc[r]
 	}
 }
@@ -108,3 +105,5 @@ type Transforms []Transform
 func (t Transforms) Len() int           { return len(t) }
 func (t Transforms) Less(i, j int) bool { return len(t[i].To) < len(t[j].To) }
 func (t Transforms) Swap(i, j int)      { t[i], t[j] = t[j], t[i] }
+
+//revive:enable:max-public-structs
