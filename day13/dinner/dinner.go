@@ -43,7 +43,6 @@ func (r *Relationships) GetHappiness(one, two string) int {
 }
 
 func (r *Relationships) GetHappiest(persons Persons) int {
-	//Get persons in a map
 	relationshipsMap := make(map[int]string)
 	counter := 0
 	for _, person := range persons.Persons {
@@ -97,7 +96,7 @@ func seqToSlice(seq permutation.Sequence) []int {
 	return indexesInt
 }
 
-//-------------------- Permutations ---------------------
+// -------------------- Permutations ---------------------
 
 // define custom type
 type intSlice []int
@@ -110,7 +109,7 @@ func (p intSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 // Implement the remaining portions of permutation.Sequence interface
 func (p intSlice) Equal(q permutation.Sequence) bool { return reflect.DeepEqual(p, q) }
 func (p intSlice) Copy() permutation.Sequence {
-	q := make(intSlice, len(p), len(p))
+	q := make(intSlice, len(p))
 	copy(q, p)
 	return q
 }
