@@ -36,10 +36,9 @@ func parse(input string) [][]int {
 	scanner := bufio.NewScanner(b)
 	for scanner.Scan() {
 		line := scanner.Text()
-		lights := strings.Split(line, "")
+		ll := strings.Split(line, "")
 		row := []int{}
-		for _, light := range lights {
-
+		for _, light := range ll {
 			if light == "." {
 				row = append(row, 0)
 			} else {
