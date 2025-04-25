@@ -7,14 +7,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Part1(t *testing.T) {
-	isHard := false
-	minimumCost := wizardry.Battling([]wizardry.Spell{}, 1000000, isHard)
+func TestPart1(t *testing.T) {
+	minimumCost := wizardry.Battling([]wizardry.Spell{}, 1000000)
 	require.Equal(t, 1269, minimumCost)
 }
 
-func Part2(t *testing.T) {
-	isHard := true
-	minimumCost := wizardry.Battling([]wizardry.Spell{}, 1000000, isHard)
+func TestPart2(t *testing.T) {
+	minimumCost := wizardry.BattlingHard([]wizardry.Spell{}, 1000000)
 	require.Equal(t, 1309, minimumCost)
 }
