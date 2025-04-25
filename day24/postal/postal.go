@@ -7,7 +7,6 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"time"
 )
 
 type Parcel int
@@ -17,13 +16,8 @@ func (p Parcel) toString() string {
 }
 
 type Group struct {
-<<<<<<<< HEAD:_24_Packing/main.go
-	parcels   []Parcel
-	maxWeight int
-========
 	Parcels   []Parcel
 	MaxWeight int
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 }
 
 func (g Group) weight() (weight int) {
@@ -38,12 +32,8 @@ func (g Group) len() int {
 }
 
 func (g *Group) Add(p Parcel) bool {
-	//Add... unless it exceeds maxweight
-<<<<<<<< HEAD:_24_Packing/main.go
-	if g.weight()+int(p) > g.maxWeight {
-========
+	// Add... unless it exceeds maxweight
 	if g.weight()+int(p) > g.MaxWeight {
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 		return false
 	}
 
@@ -55,64 +45,39 @@ type Sleigh struct {
 	Groups []Group
 }
 
-<<<<<<<< HEAD:_24_Packing/main.go
-func (s *Sleigh) addParcels(parcels []Parcel) bool {
-========
 func (s *Sleigh) AddParcels(parcels []Parcel) bool {
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
-	//Need descending order???
-	//tototal weufght:
+	// Need descending order???
+	// total weight:
 	totalWeight := 0
 	for _, parcel := range parcels {
 		totalWeight += int(parcel)
 	}
-<<<<<<<< HEAD:_24_Packing/main.go
-	groupWeight := totalWeight / len(s.groups)
-	//Inform the Groups
-	for k, _ := range s.groups {
-		s.groups[k].maxWeight = groupWeight
-	}
-
-	for _, parcel := range parcels {
-		for k, _ := range s.groups {
-			ok := s.groups[k].Add(parcel)
-========
 	groupWeight := totalWeight / len(s.Groups)
-	//Inform the Groups
-	for k, _ := range s.Groups {
+	// Inform the Groups
+	for k := range s.Groups {
 		s.Groups[k].MaxWeight = groupWeight
 	}
 
 	for _, parcel := range parcels {
-		for k, _ := range s.Groups {
+		for k := range s.Groups {
 			ok := s.Groups[k].Add(parcel)
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 			if ok {
-				break //parcel placed successfully
+				break // parcel placed successfully
 			}
 		}
 	}
 
-	//Check that ALL parcels have been placed.
+	// Check that ALL parcels have been placed.
 	parcelCount := 0
-<<<<<<<< HEAD:_24_Packing/main.go
-	for _, group := range s.groups {
-		parcelCount += len(group.parcels)
-========
 	for _, group := range s.Groups {
 		parcelCount += len(group.Parcels)
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 	}
 	if parcelCount != len(parcels) {
 		return false
 	}
 
-	//Check for balance
-<<<<<<<< HEAD:_24_Packing/main.go
-	for _, group := range s.groups {
-========
+	// Check for balance
 	for _, group := range s.Groups {
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 		if groupWeight != group.weight() {
 			return false
 		}
@@ -123,24 +88,18 @@ func (s *Sleigh) AddParcels(parcels []Parcel) bool {
 func (s *Sleigh) sort() {
 	sort.Sort(s)
 
-	//also need to sort each group
+	// also need to sort each group
 	for k, group := range s.Groups {
-
 		ints := []int{}
-<<<<<<<< HEAD:_24_Packing/main.go
-		for _, parcel := range group.parcels {
-========
 		for _, parcel := range group.Parcels {
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 			ints = append(ints, int(parcel))
 		}
-		//sort them
+		// sort them
 		sort.Ints(ints)
 
-		//write them back
+		// write them back
 		newParcels := []Parcel{}
 		for _, val := range ints {
-
 			newParcel := Parcel(val)
 			newParcels = append(newParcels, newParcel)
 		}
@@ -149,7 +108,6 @@ func (s *Sleigh) sort() {
 }
 
 func (s *Sleigh) GetInfo() (label string, sizeFirstGroup int, quantumEntanglement int) {
-
 	s.sort()
 
 	sizeFirstGroup = len(s.Groups[0].Parcels)
@@ -161,16 +119,12 @@ func (s *Sleigh) GetInfo() (label string, sizeFirstGroup int, quantumEntanglemen
 
 	chunks := []string{}
 	for _, group := range s.Groups {
-
 		strParcels := []string{}
 		for _, parcel := range group.Parcels {
-
 			strParcels = append(strParcels, parcel.toString())
 		}
-
 		chunk := strings.Join(strParcels, ",")
 		chunks = append(chunks, chunk)
-
 	}
 
 	label = strings.Join(chunks, "|")
@@ -186,7 +140,6 @@ func (s Sleigh) Swap(i, j int) {
 	s.Groups[i], s.Groups[j] = s.Groups[j], s.Groups[i]
 }
 func (s Sleigh) Less(i, j int) bool {
-
 	if s.Groups[i].len() < s.Groups[j].len() {
 		return true
 	}
@@ -195,7 +148,7 @@ func (s Sleigh) Less(i, j int) bool {
 		return false
 	}
 
-	//Need some quantum entanglement
+	// Need some quantum entanglement
 	quanti := 1
 	for _, parcel := range s.Groups[i].Parcels {
 		quanti *= int(parcel)
@@ -216,8 +169,8 @@ func parse(input string) []int {
 	for scanner.Scan() {
 		text := scanner.Text()
 
-		int, _ := strconv.Atoi(text)
-		items = append(items, int)
+		number, _ := strconv.Atoi(text)
+		items = append(items, number)
 	}
 
 	return items
@@ -229,18 +182,11 @@ type Result struct {
 }
 
 func Run(input string, groupCount int) (quantumEntanglement int) {
-
 	intParcels := parse(input)
 
 	results := make(map[string]Result)
 
-<<<<<<<< HEAD:_24_Packing/main.go
-	rand.Seed(time.Now().UnixNano())
-
-========
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 	for i := 0; i < 100000; i++ {
-
 		shuffle(intParcels)
 
 		groups := []Group{}
@@ -256,11 +202,7 @@ func Run(input string, groupCount int) (quantumEntanglement int) {
 			parcels = append(parcels, parcel)
 		}
 
-<<<<<<<< HEAD:_24_Packing/main.go
-		ok := sleigh.addParcels(parcels)
-========
 		ok := sleigh.AddParcels(parcels)
->>>>>>>> 91e6446 (Day 24):day24/postal/postal.go
 		if !ok {
 			continue
 		}
@@ -270,10 +212,9 @@ func Run(input string, groupCount int) (quantumEntanglement int) {
 		result := Result{sizeOne, qe}
 
 		results[label] = result // try locking
-
 	}
 
-	//The winner is the SMALLEST... or - the case of a tie - the one with the smallest qe
+	// The winner is the SMALLEST... or - the case of a tie - the one with the smallest qe
 
 	sizeGroupOneMinimum := 10000000000000
 	for _, result := range results {
@@ -289,19 +230,19 @@ func Run(input string, groupCount int) (quantumEntanglement int) {
 		}
 	}
 
-	QEmin := 10000000000000000
+	theQEmin := 10000000000000000
 	for _, result := range winningResults {
-		if result.quantumEntanglement < QEmin {
-			QEmin = result.quantumEntanglement
+		if result.quantumEntanglement < theQEmin {
+			theQEmin = result.quantumEntanglement
 		}
 	}
 
-	return QEmin
+	return theQEmin
 }
 
 func shuffle(a []int) {
 	for i := range a {
-		j := rand.Intn(i + 1)
+		j := rand.Intn(i + 1) // #nosec G404
 		a[i], a[j] = a[j], a[i]
 	}
 }

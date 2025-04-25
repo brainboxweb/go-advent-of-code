@@ -18,7 +18,7 @@ func TestAddParcels(t *testing.T) {
 	sleigh := postal.Sleigh{groups}
 	sleigh.AddParcels(parcels)
 
-	//Expected
+	// Expected
 	g1 := postal.Group{[]postal.Parcel{11, 9}, 20}
 	g2 := postal.Group{[]postal.Parcel{10, 8, 2}, 20}
 	g3 := postal.Group{[]postal.Parcel{7, 5, 4, 3, 1}, 20}
