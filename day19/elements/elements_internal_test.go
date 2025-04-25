@@ -7,24 +7,23 @@ import (
 )
 
 func TestSwapElement(t *testing.T) {
+	// Starting Molecule
+	elementH := Element("H")
+	elementO := Element("O")
+	elementP := Element("P")
 
-	//Starting Molecule
-	H := Element("H")
-	O := Element("O")
-	P := Element("P")
-
-	ee := []Element{H, O, P}
+	ee := []Element{elementH, elementO, elementP}
 	mol := Molecule{ee}
 
-	//New elements
-	Fe := Element("Fe")
-	Si := Element("Si")
+	// New elements
+	elementFe := Element("Fe")
+	elementSi := Element("Si")
 
-	//Perform the swap
-	mol.swapElement(0, []Element{Fe, Si})
+	// Perform the swap
+	mol.swapElement(0, []Element{elementFe, elementSi})
 
-	//Expected molecule
-	expectedElements := []Element{Fe, Si, O, P}
+	// Expected molecule
+	expectedElements := []Element{elementFe, elementSi, elementO, elementP}
 	expectedMol := Molecule{expectedElements}
 
 	require.Equal(t, expectedMol, mol)

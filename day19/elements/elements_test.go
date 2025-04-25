@@ -27,7 +27,7 @@ func TestTransform(t *testing.T) {
 
 	result := transformations.Transform(molecule)
 
-	//expected
+	// expected
 	e1 := []elements.Element{"H", "O", "O", "H"}
 	e2 := []elements.Element{"O", "H", "O", "H"}
 	e3 := []elements.Element{"H", "H", "H", "H"}

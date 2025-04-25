@@ -6,7 +6,6 @@ import (
 	"github.com/brainboxweb/advent/day19"
 )
 
-
 // ----- Day One -----
 func TestRun(t *testing.T) {
 	var tests = []struct {
@@ -105,4 +104,3 @@ Ti => TiTi
 e => HF
 e => NAl
 e => OMg`
-
